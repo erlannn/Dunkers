@@ -19,6 +19,8 @@ class User extends Authenticatable
      */
     protected $table = 'users';
     protected $fillable = [
+        'id',
+        'role_id',
         'name',
         'username',
         'password',
@@ -53,7 +55,7 @@ class User extends Authenticatable
 
     public function transaksi()
     {
-        return $this->hasMany(Transaksi::class, 'id');
+        return $this->hasMany(Transaksi::class, 'user_id');
     }
 
 }

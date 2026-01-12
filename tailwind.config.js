@@ -48,7 +48,7 @@ export default {
                 typing: 'typing 5s steps(30) infinite, blink .5s infinite',
                 mengetik: 'mengetik 7s steps(30) infinite, blink .5s infinite',
                 marquee: 'marquee 20s linear infinite',
-            }
+            },
         },
     },
 

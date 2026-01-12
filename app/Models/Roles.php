@@ -8,6 +8,7 @@ class Roles extends Model
 {
     protected $table = 'roles';
     protected $fillable = [
-        'nama_roles',
+        'id',
+        'name',
     ];
 }

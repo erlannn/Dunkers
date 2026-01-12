@@ -8,7 +8,7 @@ class Merek extends Model
 {
     protected $table = 'merek';
     protected $fillable = [
-        'id_merek',
-        'nama_merek',
+        'id',
+        'nama',
     ];
 }

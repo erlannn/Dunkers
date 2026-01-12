@@ -7,15 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 class Produk extends Model
 {
     protected $table = 'produk';
-    protected $primaryKey = 'id_produk';
+    protected $primaryKey = 'id';
     protected $keyType = 'string';
     public $incrementing = false;
     public $timestamps = false;
 
     protected $fillable = [
-        'id_produk',
-        'nama_produk',
-        'id_kategori',
+        'id',
+        'nama',
+        'kategori_id',
+        'merek_id',
+        'deskripsi',
+        'gambar1',
+        'gambar2',
+        'gambar3',
         'harga',
         'stok',
     ];

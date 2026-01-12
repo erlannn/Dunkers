@@ -10,66 +10,26 @@ use Illuminate\Support\Facades\DB;
 
 class RecommendationController extends Controller
 {
-    public function index()
-    {
-        // 🔴 JIKA BELUM LOGIN
-        if (!Auth::check()) {
-            return view('produk', [
-                'recommendedProducts' => collect(),
-                'message' => 'Silakan login untuk melihat rekomendasi produk.'
-            ]);
-        }
-
-        // ✅ JIKA SUDAH LOGIN
-        $activeUser = Auth::user();
-
-        $activeVector = $this->getUserVector($activeUser->id);
-        $scores = [];
-
-        $users = User::where('id', '!=', $activeUser->id)->get();
-
-        foreach ($users as $user) {
-            $otherVector = $this->getUserVector($user->id);
-            $similarity = $this->cosineSimilarity($activeVector, $otherVector);
-
-            if ($similarity >= 0.5) {
-                foreach ($otherVector as $productId => $qty) {
-                    if (!isset($activeVector[$productId])) {
-                        $scores[$productId] = ($scores[$productId] ?? 0) + $similarity;
-                    }
-                }
-            }
-        }
-
-        arsort($scores);
-
-        $recommendedProducts = Produk::whereIn('id_produk', array_keys($scores))
-            ->get()
-            ->map(function ($produk) use ($scores) {
-                $produk->score = round($scores[$produk->id_produk] ?? 0, 3);
-                return $produk;
-            });
-
-        return view('produk', [
-            'recommendedProducts' => $recommendedProducts,
-            'message' => null
-        ]);
-    }
-
-    // ================= HELPER =================
-
-    private function getUserVector($userId)
+    /**
+     * Membentuk vektor user berdasarkan histori pembelian
+     * v_u = (q1, q2, ..., qn)
+     */
+    private function getUserVector(int $userId): array
     {
         return Detail_Transaksi::whereHas('transaksi', function ($q) use ($userId) {
-                $q->where('id', $userId);
+                $q->where('user_id', $userId);
             })
-            ->select('id_produk', DB::raw('SUM(jumlah) as total'))
-            ->groupBy('id_produk')
-            ->pluck('total', 'id_produk')
+            ->select('produk_id', DB::raw('SUM(jumlah) as total'))
+            ->groupBy('produk_id')
+            ->pluck('total', 'produk_id')
             ->toArray();
     }
 
-    private function cosineSimilarity($A, $B)
+    /**
+     * Menghitung Cosine Similarity
+     * sim(u,v) = (u·v) / (||u|| ||v||)
+     */
+    private function cosineSimilarity(array $A, array $B): float
     {
         if (empty($A) || empty($B)) {
             return 0;
@@ -86,10 +46,84 @@ class RecommendationController extends Controller
             return 0;
         }
 
-        $normA = sqrt(array_sum(array_map(fn($v) => $v ** 2, $A)));
-        $normB = sqrt(array_sum(array_map(fn($v) => $v ** 2, $B)));
+        $normA = sqrt(array_sum(array_map(fn ($v) => $v ** 2, $A)));
+        $normB = sqrt(array_sum(array_map(fn ($v) => $v ** 2, $B)));
 
         return $dotProduct / ($normA * $normB);
     }
-}
 
+    public function index()
+    {
+        // ================== JIKA BELUM LOGIN ==================
+        if (!Auth::check()) {
+            return view('produk', [
+                'products' => collect(),
+                'guest' => true
+            ]);
+        }
+
+        $targetUser = Auth::user();
+
+        // ================== VEKTOR USER TARGET ==================
+        $targetVector = $this->getUserVector($targetUser->id);
+
+        // Jika user belum pernah beli apapun
+        if (empty($targetVector)) {
+            return view('produk', [
+                'products' => Produk::latest()->limit(6)->get(),
+                'guest' => false
+            ]);
+        }
+
+        // ================== HITUNG SIMILARITY ==================
+        $users = User::where('id', '!=', $targetUser->id)->get();
+        $similarities = [];
+
+        foreach ($users as $user) {
+            $vector = $this->getUserVector($user->id);
+            $sim = $this->cosineSimilarity($targetVector, $vector);
+
+            if ($sim > 0) {
+                $similarities[$user->id] = $sim;
+            }
+        }
+
+        if (empty($similarities)) {
+            return view('produk', [
+                'products' => Produk::latest()->limit(6)->get(),
+                'guest' => false
+            ]);
+        }
+
+        arsort($similarities);
+        $topUsers = array_slice(array_keys($similarities), 0, 3);
+
+        // ================== AMBIL PRODUK REKOMENDASI ==================
+        $recommendedProductIds = Detail_Transaksi::whereHas('transaksi', function ($q) use ($topUsers) {
+                $q->whereIn('user_id', $topUsers);
+            })
+            ->whereNotIn('produk_id', array_keys($targetVector))
+            ->select('produk_id', DB::raw('SUM(jumlah) as score'))
+            ->groupBy('produk_id')
+            ->orderByDesc('score')
+            ->limit(6)
+            ->pluck('produk_id')
+            ->toArray();
+
+        if (empty($recommendedProductIds)) {
+            return view('produk', [
+                'products' => Produk::latest()->limit(6)->get(),
+                'guest' => false
+            ]);
+        }
+
+        $products = Produk::whereIn('id', $recommendedProductIds)
+            ->orderByRaw('FIELD(id,' . implode(',', $recommendedProductIds) . ')')
+            ->get();
+
+        return view('produk', [
+            'products' => $products,
+            'guest' => false
+        ]);
+    }
+}

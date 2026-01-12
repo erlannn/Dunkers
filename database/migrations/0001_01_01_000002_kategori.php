@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('Produk', function (Blueprint $table) {
-            $table->string('id_produk', 7)->primary();
-            $table->string('nama_produk');
-            $table->string('id_kategori', 7);
-            $table->decimal('harga', 12, 2)->default(0);
-            $table->integer('stok');
+        Schema::create('kategori', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama')->unique();
             $table->timestamps();
         });
+        
     }
 
     /**
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('Produk');
+        Schema::dropIfExists('kategori');
     }
 };

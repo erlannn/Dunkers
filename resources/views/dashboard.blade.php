@@ -28,7 +28,7 @@
         <h3 class=" text-3xl font-bold text-[#E67E22] border-b-2 border-[#E67E22]">Produk Terlaris!</h3>
     </div>
 
-    <div class=" py-6 grid grid-cols-5 mx-4 mb-32">
+    <div class=" py-6 grid grid-cols-5 mx-5">
         
             {{-- produk-1 --}}
             <div class="h-[400px] w-[200px] bg-[#1A1A1A] flex items-center justify-center">
@@ -36,38 +36,11 @@
                 <div class="relative mt-5 w-[200px] bg-[#E67E22] rounded-[30px] shadow-xl shadow-slate-600 text-center">
                 
                     <img
-                    src="img/produk/KOBE-1.png"
+                    src="img/produk/KOBE-PORTO-1.png"
                     alt="Contoh Tube Biru"
                     class="absolute -top-36 left-1/2 -translate-x-1/2 w-80 drop-shadow-2xl"
                     >
-                    <div class="pt-10 pb-8 text-white">
-                    <h3 class="text-xl font-bold mb-2">Sepatu Kobe Porto</h3>
-                    <p class=" text-sm mb-2 opacity-90 ">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
-                        </p>
-                    <div class="text-xl font-bold mb-4">$ 9.99</div>
-                
-                    <div class="flex items-center justify-center">         
-                        <button class="bg-white text-orange-500 px-4 py-1 rounded-full font-bold text-sm shadow-md hover:shadow-lg hover:bg-gray-50 transition-all active:scale-95">
-                        Lihat Produk
-                        </button>
-                    </div>
-                    </div>
-                
-                </div>
-            </div>
-
-            {{-- produk-2 --}}
-            <div class="h-[400px] w-[200px] bg-[#1A1A1A] flex items-center justify-center">
-        
-                <div class="relative mt-5 w-[200px] bg-[#E67E22] rounded-[30px] shadow-xl shadow-slate-600 text-center">
-                
-                    <img
-                    src="img/produk/GIANNIS-1.png"
-                    alt="Contoh Tube Biru"
-                    class="absolute -top-36 left-1/2 -translate-x-1/2 w-80 drop-shadow-2xl"
-                    >
-                    <div class="pt-10 pb-8 text-white">
+                    <div class="pt-12 pb-8 text-white">
                     <h3 class="text-xl font-bold mb-2">Sepatu Kobe Porto</h3>
                     <p class=" text-sm mb-2 opacity-90 ">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
@@ -90,11 +63,38 @@
                 <div class="relative mt-5 w-[200px] bg-[#E67E22] rounded-[30px] shadow-xl shadow-slate-600 text-center">
                 
                     <img
+                    src="img/produk/GT-1.png"
+                    alt="Contoh Tube Biru"
+                    class="absolute -top-36 left-1/2 -translate-x-1/2 w-80 drop-shadow-2xl"
+                    >
+                    <div class="pt-12 pb-8 text-white">
+                    <h3 class="text-xl font-bold mb-2">Sepatu Kobe Porto</h3>
+                    <p class=" text-sm mb-2 opacity-90 ">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+                        </p>
+                    <div class="text-xl font-bold mb-4">$ 9.99</div>
+                
+                    <div class="flex items-center justify-center">         
+                        <button class="bg-white text-orange-500 px-4 py-1 rounded-full font-bold text-sm shadow-md hover:shadow-lg hover:bg-gray-50 transition-all active:scale-95">
+                        Lihat Produk
+                        </button>
+                    </div>
+                    </div>
+                
+                </div>
+            </div>
+    
+            {{-- produk-4 --}}
+            <div class="h-[400px] w-[200px] bg-[#1A1A1A] flex items-center justify-center">
+        
+                <div class="relative mt-5 w-[200px] bg-[#E67E22] rounded-[30px] shadow-xl shadow-slate-600 text-center">
+                
+                    <img
                     src="img/produk/LAKERS-1.png"
                     alt="Contoh Tube Biru"
-                    class="absolute -top-36 left-1/2 -translate-x-1/2 w-40 drop-shadow-2xl"
+                    class="absolute -top-36 left-1/2 -translate-x-1/2 w-80 drop-shadow-2xl"
                     >
-                    <div class="pt-10 pb-8 text-white">
+                    <div class="pt-12 pb-8 text-white">
                     <h3 class="text-xl font-bold mb-2">Sepatu Kobe Porto</h3>
                     <p class=" text-sm mb-2 opacity-90 ">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
@@ -148,6 +148,7 @@
             </div>
         
     </div>
+    <br><br><br><br><br><br>
     
     <div class="relative overflow-hidden bg-[#E67E22] h-12 flex items-center">
         <div class="whitespace-nowrap animate-marquee text-black font-bold text-lg px-1">

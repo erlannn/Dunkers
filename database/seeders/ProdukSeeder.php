@@ -2,71 +2,146 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Produk;
 
 class ProdukSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        Produk::create([
-            'id_produk' => 'P001',
-            'nama_produk' => 'Sepatu Basket Nike Zoom',
-            'id_kategori' => 'K001',
-            'harga' => '1200000',
-            'stok' => '10',
-        ]);
-
-        Produk::create([
-            'id_produk' => 'P002',
-            'nama_produk' => 'Wristband Adidas',
-            'id_kategori' => 'K003',
-            'harga' => '100000',
-            'stok' => '15',
-        ]);
-
-        Produk::create([
-            'id_produk' => 'P003',
-            'nama_produk' => 'Jersey Basket Lakers',
-            'id_kategori' => 'K002',
-            'harga' => '350000',
-            'stok' => '10',
-        ]);
-
-        Produk::create([
-            'id_produk' => 'P004',
-            'nama_produk' => 'Bola Basket Molten',
-            'id_kategori' => 'K003',
-            'harga' => '450000',
-            'stok' => '20',
-        ]);
-
-        Produk::create([
-            'id_produk' => 'P005',
-            'nama_produk' => 'Headband Nike',
-            'id_kategori' => 'K003',
-            'harga' => '80000',
-            'stok' => '30',
-        ]);
-
-        Produk::create([
-            'id_produk' => 'P006',
-            'nama_produk' => 'Sepatu Basket Adidas Subzone',
-            'id_kategori' => 'K001',
-            'harga' => '1100000',
-            'stok' => '12',
-        ]);
-
-        Produk::create([
-            'id_produk' => 'P007',
-            'nama_produk' => 'Bola Basket Spalding',
-            'id_kategori' => 'K003',
-            'harga' => '500000',
-            'stok' => '10',
+        Produk::insert([
+            [
+                'nama' => 'Sepatu Kobe Porto',
+                'kategori_id' => 1,
+                'merek_id' => 1,
+                'deskripsi' => 'Sepatu Kobe Porto merupakan bla bla bla Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla explicabo architecto adipisci, doloribus molestias recusandae dolores corporis consequatur tenetur quidem dolore accusantium nesciunt',
+                'gambar1' => 'KOBE-PORTO-1.png',
+                'gambar2' => 'KOBE-PORTO-2',
+                'gambar3' => 'KOBE-PORTO-3',
+                'harga' => 1200000,
+                'stok' => 10,
+            ],
+            [
+                'nama' => 'Headband Nike',
+                'kategori_id' => 3,
+                'merek_id' => 1,
+                'deskripsi' => 'Headband Nike merupakan bla bla bla Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla explicabo architecto adipisci, doloribus molestias recusandae dolores corporis consequatur tenetur quidem dolore accusantium nesciunt',
+                'gambar1' => 'HEADBAND-1.png',
+                'gambar2' => 'HEADBAND-1',
+                'gambar3' => 'HEADBAND-1',
+                'harga' => 100000,
+                'stok' => 15,
+            ],
+            [
+                'nama' => 'Jersey Lakers',
+                'kategori_id' => 2,
+                'merek_id' => 4,
+                'deskripsi' => 'Jersey Lakers merupakan bla bla bla Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla explicabo architecto adipisci, doloribus molestias recusandae dolores corporis consequatur tenetur quidem dolore accusantium nesciunt',
+                'gambar1' => 'LAKERS-1.png',
+                'gambar2' => 'LAKERS-2.jpg',
+                'gambar3' => 'LAKERS-2.jpg',
+                'harga' => 350000,
+                'stok' => 10,
+            ],
+            [
+                'nama' => 'Bola Basket Molten',
+                'kategori_id' => 3,
+                'merek_id' => 3,
+                'deskripsi' => 'Bola Basket Molten merupakan bla bla bla Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla explicabo architecto adipisci, doloribus molestias recusandae dolores corporis consequatur tenetur quidem dolore accusantium nesciunt,',
+                'gambar1' => 'BALL-ELITE-1.png',
+                'gambar2' => 'BALL-ELITE-1',
+                'gambar3' => 'BALL-ELITE-1',
+                'harga' => 450000,
+                'stok' => 20,
+            ],
+            [
+                'nama' => 'Celana Lakers GWS',
+                'kategori_id' => 4,
+                'merek_id' => 4,
+                'deskripsi' => 'Celana Lakers GWS merupakan bla bla bla Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla explicabo architecto adipisci, doloribus molestias recusandae dolores corporis consequatur tenetur quidem dolore accusantium nesciunt,',
+                'gambar1' => 'GWS-1.png',
+                'gambar2' => 'GWS-3.jpg',
+                'gambar3' => 'GWS-3.jpg',
+                'harga' => 200000,
+                'stok' => 55,
+            ],
+            [
+                'nama' => 'Sepatu GT Cut',
+                'kategori_id' => 1,
+                'merek_id' => 1,
+                'deskripsi' => 'Sepatu GT Cut merupakan bla bla bla Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla explicabo architecto adipisci, doloribus molestias recusandae dolores corporis consequatur tenetur quidem dolore accusantium nesciunt,',
+                'gambar1' => 'GT-1.png',
+                'gambar2' => 'GT-2.jpg',
+                'gambar3' => 'GT-3.jpg',
+                'harga' => 1100000,
+                'stok' => 15,
+            ],
+            [
+                'nama' => 'Sepatu Giannis',
+                'kategori_id' => 1,
+                'merek_id' => 1,
+                'deskripsi' => 'Sepatu Giannis merupakan bla bla bla Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla explicabo architecto adipisci, doloribus molestias recusandae dolores corporis consequatur tenetur quidem dolore accusantium nesciunt,',
+                'gambar1' => 'GIANNIS-1.png',
+                'gambar2' => 'GIANNIS-3.jpg',
+                'gambar3' => 'GIANNIS-4.jpg',
+                'harga' => 1000000,
+                'stok' => 35,
+            ],
+            [
+                'nama' => 'Baju New York',
+                'kategori_id' => 2,
+                'merek_id' => 1,
+                'deskripsi' => 'Baju New York merupakan bla bla bla Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla explicabo architecto adipisci, doloribus molestias recusandae dolores corporis consequatur tenetur quidem dolore accusantium nesciunt,',
+                'gambar1' => 'NEWYORK-1.png',
+                'gambar2' => 'NEWYORK-3.jpg',
+                'gambar3' => 'NEWYORK-3.jpg',
+                'harga' => 150000,
+                'stok' => 45,
+            ],
+            [
+                'nama' => 'Jersey North Carolina',
+                'kategori_id' => 2,
+                'merek_id' => 1,
+                'deskripsi' => 'Jersey North Carolina merupakan bla bla bla Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla explicabo architecto adipisci, doloribus molestias recusandae dolores corporis consequatur tenetur quidem dolore accusantium nesciunt,',
+                'gambar1' => 'NC-1.png',
+                'gambar2' => 'NC-2.jpg',
+                'gambar3' => 'NC-2.jpg',
+                'harga' => 300000,
+                'stok' => 16,
+            ],
+            [
+                'nama' => 'Hand Guard Nike',
+                'kategori_id' => 3,
+                'merek_id' => 1,
+                'deskripsi' => 'Hand Guard Nike merupakan bla bla bla Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla explicabo architecto adipisci, doloribus molestias recusandae dolores corporis consequatur tenetur quidem dolore accusantium nesciunt,',
+                'gambar1' => 'GUARD-1.png',
+                'gambar2' => 'GUARD-2.jpg',
+                'gambar3' => 'GUARD-2.jpg',
+                'harga' => 80000,
+                'stok' => 40,
+            ],
+            [
+                'nama' => 'Celana Lakers MNK',
+                'kategori_id' => 4,
+                'merek_id' => 1,
+                'deskripsi' => 'Celana Lakers MNK merupakan bla bla bla Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla explicabo architecto adipisci, doloribus molestias recusandae dolores corporis consequatur tenetur quidem dolore accusantium nesciunt,',
+                'gambar1' => 'LAKERSP-1.png',
+                'gambar2' => 'LAKERSP-2.jpg',
+                'gambar3' => 'LAKERSP-2.jpg',
+                'harga' => 200000,
+                'stok' => 15,
+            ],
+            [
+                'nama' => 'Baju PHIL',
+                'kategori_id' => 2,
+                'merek_id' => 1,
+                'deskripsi' => 'Baju PHIL merupakan bla bla bla Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla explicabo architecto adipisci, doloribus molestias recusandae dolores corporis consequatur tenetur quidem dolore accusantium nesciunt,',
+                'gambar1' => 'PHIL-1.png',
+                'gambar2' => 'PHIL-2.jpg',
+                'gambar3' => 'PHIL-2.jpg',
+                'harga' => 180000,
+                'stok' => 20,
+            ]
         ]);
     }
 }
