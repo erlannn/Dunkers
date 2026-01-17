@@ -21,7 +21,12 @@ Route::get('/dashboard', function () {
 
 Route::get('/keranjang', [ProdukController::class, 'index'])->name('keranjang');
 Route::get('/produk', [ProdukController::class, 'index'])->name('produk');
-Route::get('/produk/{id}', [ProdukController::class, 'show'])->name('produk.detail');
+Route::get('/produk/{id}', [ProdukController::class, 'show'])->name('produk.show');
+
+
+// Route::get('/detil', function () {
+//     return view('detail-produk');
+// })->name('detail-produk');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -362,7 +362,7 @@
         
                         {{-- GAMBAR --}}
                         <img
-                            src="{{ asset('storage/img/produk/' . $item->gambar1) }}"
+                            src="{{ asset('storage/img/produk/' . $item->gambarproduk) }}"
                             alt="{{ $item->nama }}"
                             class="absolute -top-36 left-1/2 -translate-x-1/2 w-80 drop-shadow-2xl hover:animate-pulse"
                         >
@@ -383,8 +383,14 @@
                             </div>
         
                             {{-- BUTTON --}}
-                            <div class="flex items-center justify-center">
+                            {{-- <div class="flex items-center justify-center">
                                 <a href="{{ route('produk.detail', $item->id) }}"
+                                    class="bg-white text-orange-500 px-4 py-1 rounded-full font-bold text-sm shadow-md hover:shadow-lg hover:bg-gray-400 transition-all active:scale-95">
+                                    Lihat Produk
+                                </a>
+                            </div> --}}
+                            <div class="flex items-center justify-center">
+                                <a href="{{ route('produk.show', $item->id) }}"
                                     class="bg-white text-orange-500 px-4 py-1 rounded-full font-bold text-sm shadow-md hover:shadow-lg hover:bg-gray-400 transition-all active:scale-95">
                                     Lihat Produk
                                 </a>

@@ -17,7 +17,7 @@
 
     <div class="py-12">
         <div class="w-max ml-16">
-            <p class=" text-[#E67E22] text-2xl font-extrabold animate-mengetik overflow-hidden whitespace-nowrap border-r-4 border-black pr-2 font-mono">Selamat Datang di Dunkers!</p>
+            <p class=" text-[#E67E22] text-3xl font-extrabold animate-mengetik overflow-hidden whitespace-nowrap border-r-4 border-black pr-2 font-mono">Selamat Datang di Dunkers!</p>
         </div>
         {{-- <div class="w-max ml-16">
             <p class=" text-[#E67E22] text-md font-bold animate-mengetik overflow-hidden whitespace-nowrap border-r-2 border-black pr-2 font-mono">Happy Shopping!</p>
@@ -33,81 +33,135 @@
             {{-- produk-1 --}}
             <div class="h-[400px] w-[200px] bg-[#1A1A1A] flex items-center justify-center">
         
-                <div class="relative mt-5 w-[200px] bg-[#E67E22] rounded-[30px] shadow-xl shadow-slate-600 text-center">
-                
+                <div class="relative mt-5 w-[200px] bg-[#E67E22] rounded-[30px] shadow-xl shadow-slate-600 text-center hover:bg-orange-600">
+    
+                    {{-- GAMBAR --}}
                     <img
-                    src="img/produk/KOBE-PORTO-1.png"
-                    alt="Contoh Tube Biru"
-                    class="absolute -top-36 left-1/2 -translate-x-1/2 w-80 drop-shadow-2xl"
+                        src="storage/img/produk/FORUM-1.png"
+                        alt="Sepatu Forum"
+                        class="absolute -top-36 left-1/2 -translate-x-1/2 w-80 drop-shadow-2xl hover:animate-pulse"
                     >
+    
                     <div class="pt-12 pb-8 text-white">
-                    <h3 class="text-xl font-bold mb-2">Sepatu Kobe Porto</h3>
-                    <p class=" text-sm mb-2 opacity-90 ">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+                        {{-- NAMA --}}
+                        <h3 class="text-xl font-bold mb-2">
+                            Sepatu Forum
+                        </h3>
+
+                        <p class=" line-clamp-2 text-sm mb-2 opacity-90 px-2 ">
+                            Sepatu Forum merupakan bla bla bla bla bla
                         </p>
-                    <div class="text-xl font-bold mb-4">$ 9.99</div>
-                
-                    <div class="flex items-center justify-center">         
-                        <button class="bg-white text-orange-500 px-4 py-1 rounded-full font-bold text-sm shadow-md hover:shadow-lg hover:bg-gray-50 transition-all active:scale-95">
-                        Lihat Produk
-                        </button>
+    
+                        {{-- HARGA --}}
+                        <div class="text-xl font-bold mb-4">
+                            Rp 2.000.000
+                        </div>
+    
+                        {{-- BUTTON --}}
+                        {{-- <div class="flex items-center justify-center">
+                            <a href="{{ route('produk.detail', $item->id) }}"
+                                class="bg-white text-orange-500 px-4 py-1 rounded-full font-bold text-sm shadow-md hover:shadow-lg hover:bg-gray-400 transition-all active:scale-95">
+                                Lihat Produk
+                            </a>
+                        </div> --}}
+                        <div class="flex items-center justify-center">
+                            <a href=""
+                                class="bg-white text-orange-500 px-4 py-1 rounded-full font-bold text-sm shadow-md hover:shadow-lg hover:bg-gray-400 transition-all active:scale-95">
+                                Lihat Produk
+                            </a>
+                        </div>
                     </div>
-                    </div>
-                
+    
                 </div>
             </div>
 
             {{-- produk-3 --}}
             <div class="h-[400px] w-[200px] bg-[#1A1A1A] flex items-center justify-center">
         
-                <div class="relative mt-5 w-[200px] bg-[#E67E22] rounded-[30px] shadow-xl shadow-slate-600 text-center">
-                
+                <div class="relative mt-5 w-[200px] bg-[#E67E22] rounded-[30px] shadow-xl shadow-slate-600 text-center hover:bg-orange-600">
+    
+                    {{-- GAMBAR --}}
                     <img
-                    src="img/produk/GT-1.png"
-                    alt="Contoh Tube Biru"
-                    class="absolute -top-36 left-1/2 -translate-x-1/2 w-80 drop-shadow-2xl"
+                        src="storage/img/produk/GT-1.png"
+                        alt="Sepatu GT"
+                        class="absolute -top-36 left-1/2 -translate-x-1/2 w-80 drop-shadow-2xl hover:animate-pulse"
                     >
+    
                     <div class="pt-12 pb-8 text-white">
-                    <h3 class="text-xl font-bold mb-2">Sepatu Kobe Porto</h3>
-                    <p class=" text-sm mb-2 opacity-90 ">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+                        {{-- NAMA --}}
+                        <h3 class="text-xl font-bold mb-2">
+                            Sepatu GT
+                        </h3>
+
+                        <p class=" line-clamp-2 text-sm mb-2 opacity-90 px-2 ">
+                            Sepatu GT merupakan bla bla bla bla bla
                         </p>
-                    <div class="text-xl font-bold mb-4">$ 9.99</div>
-                
-                    <div class="flex items-center justify-center">         
-                        <button class="bg-white text-orange-500 px-4 py-1 rounded-full font-bold text-sm shadow-md hover:shadow-lg hover:bg-gray-50 transition-all active:scale-95">
-                        Lihat Produk
-                        </button>
+    
+                        {{-- HARGA --}}
+                        <div class="text-xl font-bold mb-4">
+                            Rp 1.600.000
+                        </div>
+    
+                        {{-- BUTTON --}}
+                        {{-- <div class="flex items-center justify-center">
+                            <a href="{{ route('produk.detail', $item->id) }}"
+                                class="bg-white text-orange-500 px-4 py-1 rounded-full font-bold text-sm shadow-md hover:shadow-lg hover:bg-gray-400 transition-all active:scale-95">
+                                Lihat Produk
+                            </a>
+                        </div> --}}
+                        <div class="flex items-center justify-center">
+                            <a href=""
+                                class="bg-white text-orange-500 px-4 py-1 rounded-full font-bold text-sm shadow-md hover:shadow-lg hover:bg-gray-400 transition-all active:scale-95">
+                                Lihat Produk
+                            </a>
+                        </div>
                     </div>
-                    </div>
-                
+    
                 </div>
             </div>
     
             {{-- produk-4 --}}
             <div class="h-[400px] w-[200px] bg-[#1A1A1A] flex items-center justify-center">
         
-                <div class="relative mt-5 w-[200px] bg-[#E67E22] rounded-[30px] shadow-xl shadow-slate-600 text-center">
-                
+                <div class="relative mt-5 w-[200px] bg-[#E67E22] rounded-[30px] shadow-xl shadow-slate-600 text-center hover:bg-orange-600">
+    
+                    {{-- GAMBAR --}}
                     <img
-                    src="img/produk/LAKERS-1.png"
-                    alt="Contoh Tube Biru"
-                    class="absolute -top-36 left-1/2 -translate-x-1/2 w-80 drop-shadow-2xl"
+                        src="storage/img/produk/CELANA-LAKERS-1.png"
+                        alt="JERSEY LAKERS"
+                        class="absolute -top-36 left-1/2 -translate-x-1/2 w-80 drop-shadow-2xl hover:animate-pulse"
                     >
+    
                     <div class="pt-12 pb-8 text-white">
-                    <h3 class="text-xl font-bold mb-2">Sepatu Kobe Porto</h3>
-                    <p class=" text-sm mb-2 opacity-90 ">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+                        {{-- NAMA --}}
+                        <h3 class="text-xl font-bold mb-2">
+                            JERSEY LAKERS
+                        </h3>
+
+                        <p class=" line-clamp-2 text-sm mb-2 opacity-90 px-2 ">
+                            JERSEY LAKERS merupakan bla bla bla bla bla
                         </p>
-                    <div class="text-xl font-bold mb-4">$ 9.99</div>
-                
-                    <div class="flex items-center justify-center">         
-                        <button class="bg-white text-orange-500 px-4 py-1 rounded-full font-bold text-sm shadow-md hover:shadow-lg hover:bg-gray-50 transition-all active:scale-95">
-                        Lihat Produk
-                        </button>
+    
+                        {{-- HARGA --}}
+                        <div class="text-xl font-bold mb-4">
+                            Rp 2.000.000
+                        </div>
+    
+                        {{-- BUTTON --}}
+                        {{-- <div class="flex items-center justify-center">
+                            <a href="{{ route('produk.detail', $item->id) }}"
+                                class="bg-white text-orange-500 px-4 py-1 rounded-full font-bold text-sm shadow-md hover:shadow-lg hover:bg-gray-400 transition-all active:scale-95">
+                                Lihat Produk
+                            </a>
+                        </div> --}}
+                        <div class="flex items-center justify-center">
+                            <a href=""
+                                class="bg-white text-orange-500 px-4 py-1 rounded-full font-bold text-sm shadow-md hover:shadow-lg hover:bg-gray-400 transition-all active:scale-95">
+                                Lihat Produk
+                            </a>
+                        </div>
                     </div>
-                    </div>
-                
+    
                 </div>
             </div>
 
@@ -186,5 +240,5 @@
       
         // Inisialisasi tampilan pertama
         updateSlider();
-      </script>
+    </script>
 </x-app-layout>

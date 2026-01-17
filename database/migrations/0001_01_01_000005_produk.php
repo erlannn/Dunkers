@@ -17,9 +17,10 @@ return new class extends Migration
             $table->foreignId('merek_id')->constrained('merek')->cascadeOnDelete();
             $table->string('nama');
             $table->string('deskripsi');
-            $table->string('gambar1');
-            $table->string('gambar2');
-            $table->string('gambar3');
+            $table->string('gambarproduk');
+            $table->string('gambarproduk1');
+            $table->string('gambarproduk2');
+            $table->string('gambarproduk3');
             $table->integer('harga');
             $table->integer('stok')->default(0);
             $table->timestamps();

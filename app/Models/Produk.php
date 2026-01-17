@@ -18,11 +18,17 @@ class Produk extends Model
         'kategori_id',
         'merek_id',
         'deskripsi',
-        'gambar1',
-        'gambar2',
-        'gambar3',
+        'gambarproduk',
+        'gambarproduk1',
+        'gambarproduk2',
+        'gambarproduk3',
         'harga',
         'stok',
     ];
+
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'kategori_id');
+    }
 }
 

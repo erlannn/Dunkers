@@ -7,8 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Kategori extends Model
 {
     protected $table = 'kategori';
-    protected $fillable = [
-        'id',
-        'nama_kategori',
-    ];
+    protected $fillable = ['nama'];
+
+    public function ukurans()
+    {
+        return $this->belongsToMany(Ukuran::class, 'kategori_ukuran');
+    }
 }
+
