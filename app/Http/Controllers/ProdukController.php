@@ -53,7 +53,7 @@ class ProdukController extends Controller
 
     public function show($id)
     {
-        $produk = Produk::with('kategori.ukurans')->findOrFail($id);
+        $produk = Produk::with('kategori.ukurans', 'merek')->findOrFail($id);
 
         $rekomendasi = collect();
         $guest = true;

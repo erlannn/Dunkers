@@ -54,7 +54,6 @@
             </div>
         </div>
     
-    
         {{-- ================= SISI KANAN ================= --}}
         <div class="text-white mr-10">
     
@@ -71,9 +70,32 @@
             <br><br>
     
             {{-- ================= UKURAN ================= --}}
-            <h3 class="text-2xl font-extrabold mb-3">Ukuran</h3>
+            <div class="text-md text-gray-300 mb-2">
+                <span class="mr-4">
+                    Kategori: 
+                    <span class="text-orange-400 font-semibold">
+                        {{ $produk->kategori?->nama ?? '-' }}
+                    </span>
+                </span>
+            
+                <span class="mr-4">
+                    Merek: 
+                    <span class="text-orange-400 font-semibold">
+                        {{ $produk->merek?->nama ?? '-' }}
+                    </span>
+                </span>
+
+                <span>
+                    Stok yang tersedia: 
+                    <span class="text-orange-400 font-semibold">
+                        {{ $produk->stok}}
+                    </span>
+                </span>
+            </div>
+
+            {{-- <h3 class="text-2xl font-extrabold mb-3">Ukuran</h3> --}}
     
-            <div class="grid grid-cols-2">
+            {{-- <div class="grid grid-cols-2">
     
                 <div class="flex gap-2 flex-wrap">
                     @if ($produk->kategori && $produk->kategori->ukurans->count())
@@ -81,7 +103,7 @@
                             <x-primary-button>{{ $ukuran->nama }}</x-primary-button>
                         @endforeach
                     @else
-                        <span class="text-gray-400">Ukuran belum tersedia</span>
+                        <span class="text-gray-400">Ukuran tidak tersedia untuk aksesoris</span>
                     @endif
                 </div>
     
@@ -89,8 +111,57 @@
                     <x-primary-button>Keranjang</x-primary-button>
                 </div>
     
-            </div>
-    
+            </div> --}}
+
+            <form action="{{ route('cart.add', $produk->id) }}" method="POST">
+                @csrf
+                
+                <div class=" grid grid-cols-2">
+                    <div>
+                        @if ($produk->kategori && $produk->kategori->ukurans->count())
+                            <h3 class="text-2xl font-extrabold mb-3">Ukuran</h3>
+                        
+                            <div class="flex gap-3 flex-wrap">
+                                @foreach ($produk->kategori->ukurans as $ukuran)
+                                    <label class="cursor-pointer">
+                                        <input type="radio" 
+                                            name="ukuran_id" 
+                                            value="{{ $ukuran->id }}" 
+                                            class="hidden peer" required>
+                        
+                                        <span class="px-4 py-2 rounded-lg border 
+                                            peer-checked:bg-[#E67E22]
+                                            peer-checked:text-white">
+                                            {{ $ukuran->nama }}
+                                        </span>
+                                    </label>
+                                @endforeach
+                            </div>
+                        @endif
+                    </div>
+     
+                    <div>
+                        <h3 class="text-2xl ml-4 font-extrabold">Jumlah</h3>
+                        <div class="flex items-center ml-4 gap-3">
+                        
+                            <input type="number" name="qty" value="1" min="1" class=" w-20 text-black rounded">
+                            <button type="submit" class=" bg-orange-500 px-6 py-2 rounded w-[75px] text-white">
+                                <img src="{{ asset('storage/img/produk/keranjang.png') }}" alt="keranjang">
+                                {{-- <svg  aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="25" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7h-1M8 7h-.688M13 5v4m-2-2h4" />
+                                </svg> --}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+            </form>  
+            @if(session('success'))
+                <div class="bg-green-500 text-white px-4 py-2 rounded mb-4 mt-4">
+                    {{ session('success') }}
+                </div>
+            @endif   
+                  
         </div>
     
     </div>
@@ -106,12 +177,12 @@
     </div>
 
     @if($guest)
-    <p class="text-gray-400 mt-4">
+    <p class="text-gray-400 mt-4 ml-10">
         Login untuk mendapatkan rekomendasi produk khusus untukmu.
     </p>
     @else
         @if($rekomendasi->isEmpty())
-            <p class="text-gray-400 mt-4">Tidak ada rekomendasi.</p>
+            <p class="text-gray-400 mt-4">Silahkan berbelanja dahulu untuk mendapatkan rekomendasi.</p>
         @else
             <div class="grid grid-cols-4 mt-6">
                 @foreach($rekomendasi as $item)
@@ -133,8 +204,7 @@
         @endif
     @endif
 
-
-    <br><br><br><br><br><br><br><br>
+    <br><br>
 
     <script>
         const slider = document.getElementById('slider');

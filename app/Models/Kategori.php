@@ -13,5 +13,10 @@ class Kategori extends Model
     {
         return $this->belongsToMany(Ukuran::class, 'kategori_ukuran');
     }
+
+    public function produks()
+    {
+        return $this->hasMany(Produk::class);
+    }
 }
 

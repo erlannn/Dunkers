@@ -2,7 +2,6 @@
     
     <div class=" ml-16 mb-5 mt-10 flex justify-center">
         <h3 class=" text-5xl font-extrabold text-[#E67E22] border-[#E67E22]">Semua Produk!</h3>
-
     </div>
     
     <div class="w-full max-w-2xl mx-auto p-4 mb-14 ">
@@ -405,7 +404,7 @@
     </div>
 
     {{-- Rekomendasi --}}
-    <h2 class="text-xl font-bold mb-4">Rekomendasi Produk Untuk Anda</h2>
+    {{-- <h2 class="text-xl font-bold mb-4">Rekomendasi Produk Untuk Anda</h2> --}}
 
     {{-- JIKA BELUM LOGIN --}}
     {{-- @if($guest)

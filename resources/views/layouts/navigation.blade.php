@@ -37,8 +37,8 @@
                 <div class="hidden sm:flex sm:items-center sm:ms-6">
                     <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-white dark:bg-[#E67E22] hover:bg-[#E67E22] hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-200">
                         <div>
-                            <x-nav-link :href="route('keranjang')" :active="request()->routeIs('keranjang')">
-                                {{ __('keranjang') }}
+                            <x-nav-link :href="route('cart.index')" :active="request()->routeIs('cart.index')">
+                                <img src="{{ asset('storage/img/produk/keranjang.png') }}" alt="keranjang" class=" w-[22px] h-[22px] ">
                             </x-nav-link>
                         </div>
                     </button>

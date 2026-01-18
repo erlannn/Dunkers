@@ -30,5 +30,10 @@ class Produk extends Model
     {
         return $this->belongsTo(Kategori::class, 'kategori_id');
     }
+
+    public function merek()
+    {
+        return $this->belongsTo(Merek::class);
+    }
 }
 
