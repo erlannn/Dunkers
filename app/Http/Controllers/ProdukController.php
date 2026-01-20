@@ -19,17 +19,43 @@ class ProdukController extends Controller
 
     // ================== CF SUPPORT ==================
 
+    /**
+     * Membentuk vektor user dengan bobot histori terbaru
+     */
     private function getUserVector(int $userId): array
     {
-        return Detail_Transaksi::whereHas('transaksi', function ($q) use ($userId) {
-                $q->where('user_id', $userId);
-            })
-            ->select('produk_id', DB::raw('SUM(jumlah) as total'))
-            ->groupBy('produk_id')
+        return Detail_Transaksi::join('transaksi', 'transaksi.id', '=', 'detail_transaksi.transaksi_id')
+            ->where('transaksi.user_id', $userId)
+            ->select(
+                'detail_transaksi.produk_id',
+                DB::raw('SUM(detail_transaksi.jumlah * (1 / (1 + DATEDIFF(NOW(), transaksi.created_at)))) as total')
+            )
+            ->groupBy('detail_transaksi.produk_id')
             ->pluck('total', 'produk_id')
             ->toArray();
     }
 
+    /**
+     * Ambil kategori yang sudah dibeli user + totalnya
+     */
+    private function getUserCategoryStats(int $userId)
+    {
+        return Detail_Transaksi::join('transaksi', 'transaksi.id', '=', 'detail_transaksi.transaksi_id')
+            ->join('produk', 'produk.id', '=', 'detail_transaksi.produk_id')
+            ->where('transaksi.user_id', $userId)
+            ->select(
+                'produk.kategori_id',
+                DB::raw('SUM(detail_transaksi.jumlah) as total')
+            )
+            ->groupBy('produk.kategori_id')
+            ->orderByDesc('total')
+            ->get();
+    }
+
+
+    /**
+     * Cosine similarity antar user
+     */
     private function cosineSimilarity(array $A, array $B): float
     {
         if (empty($A) || empty($B)) return 0;
@@ -46,6 +72,8 @@ class ProdukController extends Controller
         $normA = sqrt(array_sum(array_map(fn ($v) => $v ** 2, $A)));
         $normB = sqrt(array_sum(array_map(fn ($v) => $v ** 2, $B)));
 
+        if ($normA == 0 || $normB == 0) return 0;
+
         return $dotProduct / ($normA * $normB);
     }
 
@@ -58,67 +86,49 @@ class ProdukController extends Controller
         $rekomendasi = collect();
         $guest = true;
 
-        // ================== JIKA LOGIN ==================
         if (Auth::check()) {
             $guest = false;
-            $targetUser = Auth::user();
 
-            $targetVector = $this->getUserVector($targetUser->id);
+            $userId = Auth::id();
 
-            // ================== JIKA BELUM ADA HISTORI ==================
-            if (empty($targetVector)) {
+            // ================== AMBIL STATISTIK KATEGORI USER ==================
+            $userCategories = $this->getUserCategoryStats($userId);
+
+            if ($userCategories->isEmpty()) {
                 $rekomendasi = Produk::where('id', '!=', $produk->id)
-                    ->latest()
+                    ->orderByDesc('created_at')
                     ->limit(4)
                     ->get();
             } 
             else {
-                // ================== HITUNG SIMILARITY ==================
-                $users = User::where('id', '!=', $targetUser->id)->get();
-                $similarities = [];
 
-                foreach ($users as $user) {
-                    $vector = $this->getUserVector($user->id);
-                    $sim = $this->cosineSimilarity($targetVector, $vector);
+                // ================== KATEGORI YANG SUDAH DIBELI ==================
+                $boughtCategoryIds = $userCategories->pluck('kategori_id')->toArray();
 
-                    if ($sim > 0) {
-                        $similarities[$user->id] = $sim;
-                    }
+                // ================== AMBIL SEMUA KATEGORI ==================
+                $allCategoryIds = \App\Models\Kategori::pluck('id')->toArray();
+
+                // ================== KATEGORI YANG BELUM DIBELI ==================
+                $missingCategoryIds = array_diff($allCategoryIds, $boughtCategoryIds);
+
+                // ================== PRIORITAS KATEGORI BELUM DIBELI ==================
+                if (!empty($missingCategoryIds)) {
+                    $targetCategoryIds = $missingCategoryIds;
+                } else {
+                    // kalau semua sudah dibeli, ulangi dari favorit
+                    $targetCategoryIds = $boughtCategoryIds;
                 }
 
-                if (!empty($similarities)) {
-                    arsort($similarities);
-                    $topUsers = array_slice(array_keys($similarities), 0, 3);
-
-                    $recommendedProductIds = Detail_Transaksi::whereHas('transaksi', function ($q) use ($topUsers) {
-                            $q->whereIn('user_id', $topUsers);
-                        })
-                        ->whereNotIn('produk_id', array_keys($targetVector))
-                        ->select('produk_id', DB::raw('SUM(jumlah) as score'))
-                        ->groupBy('produk_id')
-                        ->orderByDesc('score')
-                        ->limit(4)
-                        ->pluck('produk_id')
-                        ->toArray();
-
-                    if (!empty($recommendedProductIds)) {
-                        $rekomendasi = Produk::whereIn('id', $recommendedProductIds)
-                            ->where('id', '!=', $produk->id)
-                            ->orderByRaw('FIELD(id,' . implode(',', $recommendedProductIds) . ')')
-                            ->get();
-                    }
-                }
-
-                // fallback
-                if ($rekomendasi->isEmpty()) {
-                    $rekomendasi = Produk::where('id', '!=', $produk->id)
-                        ->latest()
-                        ->limit(4)
-                        ->get();
-                }
+                // ================== AMBIL PRODUK ==================
+                $rekomendasi = Produk::whereIn('kategori_id', $targetCategoryIds)
+                    ->where('id', '!=', $produk->id)
+                    ->orderByDesc('created_at')
+                    ->limit(4)
+                    ->get();
             }
         }
 
         return view('detail-produk', compact('produk', 'rekomendasi', 'guest'));
     }
+
 }
