@@ -145,22 +145,14 @@
                         <div class="flex items-center ml-4 gap-3">
                         
                             <input type="number" name="qty" value="1" min="1" class=" w-20 text-black rounded">
-                            <button type="submit" class=" bg-orange-500 px-6 py-2 rounded w-[75px] text-white">
+                            <button type="submit" class=" bg-orange-500 hover:bg-orange-700 px-6 py-2 rounded w-[75px] text-white">
                                 <img src="{{ asset('storage/img/produk/keranjang.png') }}" alt="keranjang">
-                                {{-- <svg  aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="25" fill="none" viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7h-1M8 7h-.688M13 5v4m-2-2h4" />
-                                </svg> --}}
                             </button>
                         </div>
                     </div>
                 </div>
                 
-            </form>  
-            @if(session('success'))
-                <div class="bg-green-500 text-white px-4 py-2 rounded mb-4 mt-4">
-                    {{ session('success') }}
-                </div>
-            @endif   
+            </form>   
                   
         </div>
     
@@ -178,11 +170,11 @@
 
     @if($guest)
     <p class="text-gray-400 mt-4 ml-10">
-        Login untuk mendapatkan rekomendasi produk khusus untukmu.
+        Silahkan berbelanja dahulu untuk mendapatkan rekomendasi produk!.
     </p>
     @else
         @if($rekomendasi->isEmpty())
-            <p class="text-gray-400 mt-4">Silahkan berbelanja dahulu untuk mendapatkan rekomendasi.</p>
+            <p class="text-gray-400 mt-4 ml-10">Silahkan berbelanja dahulu untuk mendapatkan rekomendasi produk!.</p>
         @else
             <div class="grid grid-cols-4 mt-6">
                 @foreach($rekomendasi as $item)

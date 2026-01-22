@@ -29,8 +29,32 @@
 
             <!-- Page Content -->
             <main>
-
                 {{ $slot }}
+
+                @if(session('success'))
+                <div 
+                    id="checkout-toast"
+                    class="fixed top-20 right-6 z-50 bg-green-600 text-white px-6 py-4 rounded-xl shadow-lg
+                        animate-toastIn">
+                    <div class="flex items-center gap-2">
+                        <span></span>
+                        <span>{{ session('success') }}</span>
+                    </div>
+                </div>
+
+                <script>
+                    setTimeout(() => {
+                        const toast = document.getElementById('checkout-toast');
+                        if (toast) {
+                            toast.classList.remove('animate-toastIn');
+                            toast.classList.add('animate-toastOut');
+
+                            setTimeout(() => toast.remove(), 400);
+                        }
+                    }, 3000);
+                </script>
+                @endif
+
             </main>
 
             <footer class="py-4">

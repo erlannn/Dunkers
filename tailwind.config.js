@@ -16,6 +16,14 @@ export default {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
             keyframes: {
+                toastIn: {
+                    '0%': { transform: 'translateX(100%)', opacity: '0' },
+                    '100%': { transform: 'translateX(0)', opacity: '1' },
+                },
+                toastOut: {
+                    '0%': { transform: 'translateX(0)', opacity: '1' },
+                    '100%': { transform: 'translateX(100%)', opacity: '0' },
+                },
                 typing: {
                     // 0% sampai 50%: Proses mengetik
                     // 50% sampai 80%: Berhenti sejenak (diam di 100% width)
@@ -48,7 +56,10 @@ export default {
                 typing: 'typing 5s steps(30) infinite, blink .5s infinite',
                 mengetik: 'mengetik 7s steps(30) infinite, blink .5s infinite',
                 marquee: 'marquee 20s linear infinite',
+                toastIn: 'toastIn .4s ease-out forwards',
+                toastOut: 'toastOut .4s ease-in forwards',
             },
+            
         },
     },
 

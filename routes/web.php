@@ -29,7 +29,6 @@ Route::get('/keranjang', function () {
 Route::get('/produk', [ProdukController::class, 'index'])->name('produk');
 Route::get('/produk/{id}', [ProdukController::class, 'show'])->name('produk.show');
 
-
 Route::get('/cart', [CartController::class, 'index'])->middleware(['auth', 'verified'])->name('cart.index');
 Route::post('/cart/{produk}', [CartController::class, 'add'])->middleware(['auth', 'verified'])->name('cart.add');
 Route::post('/checkout', [CartController::class, 'checkout'])->middleware(['auth', 'verified'])->name('cart.checkout');

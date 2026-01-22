@@ -5,14 +5,15 @@
     </div>
     
     <div class=" flex justify-center">
-        <div class=" w-[800px] h-auto">
-            <table class=" w-full text-white border">
+        <div class=" w-[800px] h-auto bg-[#E67E22] p-5 rounded-3xl">
+            <table class=" w-full text-white border-y-2">
                 <thead>
-                    <tr class="border-b">
+                    <tr class="border-b-2 text-base">
+                        <th>Gambar</th>
                         <th>Produk</th>
                         <th>Ukuran</th>
-                        <th>Harga</th>
-                        <th>Qty</th>
+                        <th>Harga Produk</th>
+                        <th>Jumlah</th>
                         <th>Total</th>
                         <th>Aksi</th>
                     </tr>
@@ -27,19 +28,17 @@
                 $grandTotal += $total;
                 @endphp
                   
-                    <tr class="border-b text-center">
+                    <tr class="border-b-2 text-center">
+                        <td>
+                            <img src="{{ asset('storage/img/produk/' . $item->produk->gambarproduk) }}" 
+                             alt="{{ $item->produk->nama }}" 
+                             class=" w-32 ml-5">
+                        </td>
                         <td>{{ $item->produk->nama }}</td>
                         <td>{{ $item->ukuran->nama ?? '-' }}</td>
                         <td>Rp {{ number_format($item->produk->harga) }}</td>
                     
                         <td>
-                            {{-- <form action="{{ route('cart.update',$item->id) }}" method="POST">
-                                @csrf
-                                @method('PATCH')
-                                <input type="number" name="qty" value="{{ $item->qty }}"
-                                    class="w-16 text-black rounded">
-                                <button class="bg-blue-500 px-2 py-1 rounded">Update</button>
-                            </form> --}}
                             {{ $item->qty }}
                         </td>
                     
@@ -49,7 +48,7 @@
                             <form action="{{ route('cart.destroy',$item->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button class="bg-red-500 px-2 py-1 rounded-lg my-2">Batalkan</button>
+                            <button class="bg-red-600 hover:bg-red-700 px-2 py-1 rounded-lg my-2">Batalkan</button>
                             </form>
                         </td>
                     </tr>
@@ -58,34 +57,18 @@
                 
             </table>
             <div class=" flex justify-end">
-                <h3 class="text-white mt-6">
+                <h3 class="text-white mt-6 text-lg font-bold">
                 Total Harga: Rp {{ number_format($grandTotal) }}
                 </h3>
-                
-                {{-- <form action="{{ route('cart.checkout') }}" method="POST">
-                @csrf
-                <button class="bg-orange-500 mt-4 px-6 py-2 mx-2 rounded-lg text-white">
-                Checkout
-                </button>
-                </form>  --}}
 
-                <a href="{{ route('checkout.page') }}"
-                class="bg-orange-500 mt-4 px-6 py-2 rounded-lg mx-2 text-white inline-block">
-                Checkout
+                <a href="{{ route('checkout.page') }}" class="bg-orange-800 hover:bg-orange-700 mt-4 px-6 py-2 rounded-lg mx-2 font-bold text-white inline-block">
+                    Checkout
                 </a>
-
             </div>
-            @if(session('success'))
-                <div class="bg-green-500 text-white px-4 py-2 rounded mb-4 mt-4">
-                    {{ session('success') }}
-                </div>
-            @endif
         </div> 
     </div>
 
-    
-    
-    <br><br><br><br><br><br><br><br>
+    <br><br><br><br>
         
 </x-app-layout>
     

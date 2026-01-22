@@ -60,7 +60,7 @@ class CartController extends Controller
 
         Cart::where('user_id', Auth::id())->delete();
 
-        return redirect()->route('produk')->with('success','Checkout berhasil');
+        return redirect()->route('produk')->with('success','Checkout berhasil! Terima kasih sudah berbelanja di Dunkers 🙌');
     }
 
     public function update(Request $request, Cart $cart)
@@ -74,7 +74,7 @@ class CartController extends Controller
     public function destroy(Cart $cart)
     {
         $cart->delete();
-        return back()->with('success','Item dihapus');
+        return back()->with('success','Produk dibatalkan');
     }
 
     public function checkoutPage()
@@ -120,7 +120,7 @@ class CartController extends Controller
             Cart::where('user_id',Auth::id())->delete();
         });
 
-        return redirect('/')->with('success','Checkout berhasil');
+        return redirect('/')->with('success','Checkout berhasil! Terima kasih sudah berbelanja di Dunkers 🙌');
     }
 
 }
