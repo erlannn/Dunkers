@@ -46,12 +46,22 @@
                     </label>
                     @endforeach
                 </div>
-                
+
+                @if($carts->isEmpty())
+                <div class=" flex justify-center mb-3">
+                    <button class="bg-gray-600 w-80 px-6 py-2 mt-4 cursor-not-allowed rounded-lg text-white text-lg font-bold">
+                        Bayar Sekarang
+                    </button>
+                </div>
+                @else
                 <div class=" flex justify-center mb-3">
                     <button class="bg-blue-600 hover:bg-blue-700 w-80 px-6 py-2 mt-4 rounded-lg text-white text-lg font-bold">
                         Bayar Sekarang
                     </button>
                 </div>
+                @endif
+                
+                
             
             </form>
         </div>

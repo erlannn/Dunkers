@@ -41,6 +41,16 @@
                         <span>{{ session('success') }}</span>
                     </div>
                 </div>
+                @elseif(session('error'))
+                <div 
+                    id="checkout-toast"
+                    class="fixed top-20 right-6 z-50 bg-red-600 text-white px-6 py-4 rounded-xl shadow-lg
+                        animate-toastIn">
+                    <div class="flex items-center gap-2">
+                        <span></span>
+                        <span>{{ session('error') }}</span>
+                    </div>
+                </div>
 
                 <script>
                     setTimeout(() => {

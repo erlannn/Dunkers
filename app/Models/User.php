@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Roles;
 
 class User extends Authenticatable
 {
@@ -57,5 +58,16 @@ class User extends Authenticatable
     {
         return $this->hasMany(Transaksi::class, 'user_id');
     }
+
+    public function isAdmin()
+    {
+        return $this->role_id == 1;
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Roles::class, 'role_id');
+    }
+
 
 }

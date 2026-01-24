@@ -61,9 +61,19 @@
                 Total Harga: Rp {{ number_format($grandTotal) }}
                 </h3>
 
-                <a href="{{ route('checkout.page') }}" class="bg-orange-800 hover:bg-orange-700 mt-4 px-6 py-2 rounded-lg mx-2 font-bold text-white inline-block">
-                    Checkout
-                </a>
+                @if($carts->isEmpty())
+                    <button
+                        disabled
+                        class="bg-gray-600 cursor-not-allowed mt-4 px-6 py-2 rounded-lg mx-2 font-bold text-white inline-block opacity-60">
+                        Checkout
+                    </button>
+                @else
+                    <a href="{{ route('checkout.page') }}"
+                    class="bg-orange-800 hover:bg-orange-700 mt-4 px-6 py-2 rounded-lg mx-2 font-bold text-white inline-block">
+                        Checkout
+                    </a>
+                @endif
+
             </div>
         </div> 
     </div>

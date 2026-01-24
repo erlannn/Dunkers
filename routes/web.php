@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RecommendationController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('dashboard');
@@ -40,6 +41,7 @@ Route::post('/checkout', [CartController::class, 'checkout'])->middleware(['auth
 Route::get('/checkout', [CartController::class,'checkoutPage'])->name('checkout.page');
 Route::post('/checkout', [CartController::class,'checkoutStore'])->name('checkout.store');
 
+
 // Route::get('/detil', function () {
 //     return view('detail-produk');
 // })->name('detail-produk');
@@ -49,5 +51,47 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+/*
+|--------------------------------------------------------------------------
+| ADMIN ROUTES
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth','is_admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+
+        Route::get('/', [AdminController::class, 'index'])->name('index');
+
+        // PRODUK
+        Route::get('/produk', [AdminController::class, 'kelolaProduk'])->name('produk.index');
+        Route::get('/produk/create', [AdminController::class, 'createProduk'])->name('produk.create');
+        Route::post('/produk', [AdminController::class, 'storeProduk'])->name('produk.store');
+        Route::get('/produk/{id}/edit', [AdminController::class, 'editProduk'])->name('produk.edit');
+        Route::put('/produk/{id}', [AdminController::class, 'updateProduk'])->name('produk.update');
+        Route::delete('/produk/{id}', [AdminController::class, 'destroyProduk'])->name('produk.destroy');
+
+        // TRANSAKSI
+        Route::get('/riwayat-transaksi', [AdminController::class, 'riwayat'])->name('riwayat');
+
+        // Unduh Riwayat Transaksi
+        Route::get('/admin/riwayat/pdf', [AdminController::class, 'riwayatPdf'])
+        ->name('riwayat.pdf');
+
+    Route::get('/admin/users', [AdminController::class, 'users'])->name('users');
+    Route::get('/admin/users/create', [AdminController::class, 'createUser'])->name('users.create');
+    Route::post('/admin/users', [AdminController::class, 'storeUser'])->name('users.store');
+
+    Route::get('/admin/users/{user}/edit', [AdminController::class, 'editUser'])->name('users.edit');
+    Route::put('/admin/users/{user}', [AdminController::class, 'updateUser'])->name('users.update');
+    Route::delete('/admin/users/{user}', [AdminController::class, 'destroyUser'])->name('users.destroy');
+
+});
+
+
+
+
 
 require __DIR__.'/auth.php';

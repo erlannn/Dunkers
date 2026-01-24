@@ -139,17 +139,23 @@
                             </div>
                         @endif
                     </div>
-     
-                    <div>
-                        <h3 class="text-2xl ml-4 font-extrabold">Jumlah</h3>
-                        <div class="flex items-center ml-4 gap-3">
-                        
-                            <input type="number" name="qty" value="1" min="1" class=" w-20 text-black rounded">
-                            <button type="submit" class=" bg-orange-500 hover:bg-orange-700 px-6 py-2 rounded w-[75px] text-white">
-                                <img src="{{ asset('storage/img/produk/keranjang.png') }}" alt="keranjang">
-                            </button>
+
+                        @auth
+                        @if(auth()->user()->role_id == '1')
+                        {{-- Kosong --}}
+                        @else
+                        <div>
+                            <h3 class="text-2xl ml-4 font-extrabold">Jumlah</h3>
+                            <div class="flex items-center ml-4 gap-3">
+                            
+                                <input type="number" name="qty" value="1" min="1" class=" w-20 text-black rounded">
+                                <button type="submit" class=" bg-orange-500 hover:bg-orange-700 px-6 py-2 rounded w-[75px] text-white">
+                                    <img src="{{ asset('storage/img/produk/keranjang.png') }}" alt="keranjang">
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                        @endif
+                    @endauth
                 </div>
                 
             </form>   

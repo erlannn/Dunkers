@@ -10,6 +10,10 @@ class Transaksi extends Model
     protected $primaryKey = 'id';
     public $timestamps = false;
 
+    protected $casts = [
+        'tanggal' => 'date',
+    ];
+    
     protected $fillable = [
         'id',
         'user_id',
@@ -27,6 +31,11 @@ class Transaksi extends Model
     public function metode()
     {
         return $this->belongsTo(Metode_Pembayaran::class,'metode_pembayaran_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
 }
