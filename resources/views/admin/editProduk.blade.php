@@ -8,17 +8,17 @@
     
             <div class="mb-3">
                 <label>Nama Produk</label>
-                <input type="text" name="nama" value="{{ $produk->nama }}" class="w-full border p-2 rounded">
+                <input type="text" name="nama" value="{{ $produk->nama }}" class="w-full border p-2 rounded-lg bg-orange-900 text-white">
             </div>
     
             <div class="mb-3">
                 <label>Harga</label>
-                <input type="number" name="harga" value="{{ $produk->harga }}" class="w-full border p-2 rounded">
+                <input type="number" name="harga" value="{{ $produk->harga }}" class="w-full border p-2 rounded-lg bg-orange-900 text-white">
             </div>
 
             <div class="mb-3">
                 <label>Kategori</label>
-                <select name="kategori_id" class="w-full border p-2 rounded">
+                <select name="kategori_id" class="w-full border p-2 -lg bg-orange-900 text-white">
                     @foreach($kategori as $k)
                         <option value="{{ $k->id }}" 
                             {{ $produk->kategori_id == $k->id ? 'selected' : '' }}>
@@ -30,7 +30,7 @@
             
             <div class="mb-3">
                 <label>Merek</label>
-                <select name="merek_id" class="w-full border p-2 rounded">
+                <select name="merek_id" class="w-full border p-2 rounded-lg bg-orange-900 text-white">
                     @foreach($merek as $m)
                         <option value="{{ $m->id }}" 
                             {{ $produk->merek_id == $m->id ? 'selected' : '' }}>
@@ -42,12 +42,12 @@
     
             <div class="mb-3">
                 <label>Stok</label>
-                <input type="number" name="stok" value="{{ $produk->stok }}" class="w-full border p-2 rounded">
+                <input type="number" name="stok" value="{{ $produk->stok }}" class="w-full border p-2 rounded-lg bg-orange-900 text-white">
             </div>
     
             <div class="mb-3">
                 <label>Deskripsi</label>
-                <textarea name="deskripsi" class="w-full border p-2 rounded">{{ $produk->deskripsi }}</textarea>
+                <textarea name="deskripsi" class="w-full border p-2 rounded-lg bg-orange-900 text-white">{{ $produk->deskripsi }}</textarea>
             </div>
     
             <div class=" grid grid-cols-2">

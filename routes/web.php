@@ -6,26 +6,26 @@ use App\Http\Controllers\RecommendationController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DashboardController;
 
-Route::get('/', function () {
-    return view('dashboard');
-});
+// Route::get('/', function () {
+//     return view('dashboard');
+// });
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard');
 
+Route::get('/', [DashboardController::class, 'index'])->name('/');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::get('/keranjang', function () {
     return view('keranjang');
 })->name('keranjang');
-
-// Route::get('/produk', [RecommendationController::class, 'index'])->name('produk');
-// Route::get('/keranjang', [ProdukController::class, 'index'])->name('keranjang');
 
 Route::get('/produk', [ProdukController::class, 'index'])->name('produk');
 Route::get('/produk/{id}', [ProdukController::class, 'show'])->name('produk.show');
@@ -40,11 +40,6 @@ Route::post('/checkout', [CartController::class, 'checkout'])->middleware(['auth
 
 Route::get('/checkout', [CartController::class,'checkoutPage'])->name('checkout.page');
 Route::post('/checkout', [CartController::class,'checkoutStore'])->name('checkout.store');
-
-
-// Route::get('/detil', function () {
-//     return view('detail-produk');
-// })->name('detail-produk');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -80,16 +75,16 @@ Route::middleware(['auth','is_admin'])
         Route::get('/admin/riwayat/pdf', [AdminController::class, 'riwayatPdf'])
         ->name('riwayat.pdf');
 
-    Route::get('/admin/users', [AdminController::class, 'users'])->name('users');
-    Route::get('/admin/users/create', [AdminController::class, 'createUser'])->name('users.create');
-    Route::post('/admin/users', [AdminController::class, 'storeUser'])->name('users.store');
+        // Users
+        Route::get('/admin/users', [AdminController::class, 'users'])->name('users');
+        Route::get('/admin/users/create', [AdminController::class, 'createUser'])->name('users.create');
+        Route::post('/admin/users', [AdminController::class, 'storeUser'])->name('users.store');
 
-    Route::get('/admin/users/{user}/edit', [AdminController::class, 'editUser'])->name('users.edit');
-    Route::put('/admin/users/{user}', [AdminController::class, 'updateUser'])->name('users.update');
-    Route::delete('/admin/users/{user}', [AdminController::class, 'destroyUser'])->name('users.destroy');
+        Route::get('/admin/users/{user}/edit', [AdminController::class, 'editUser'])->name('users.edit');
+        Route::put('/admin/users/{user}', [AdminController::class, 'updateUser'])->name('users.update');
+        Route::delete('/admin/users/{user}', [AdminController::class, 'destroyUser'])->name('users.destroy');
 
 });
-
 
 
 

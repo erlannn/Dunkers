@@ -16,17 +16,17 @@
     
             <div class="mb-3">
                 <label>Nama Produk</label>
-                <input type="text" name="nama" class="w-full border p-2 rounded" required>
+                <input type="text" name="nama" class="w-full border p-2 rounded-lg bg-orange-900 text-white" required>
             </div>
     
             <div class="mb-3">
                 <label>Harga</label>
-                <input type="number" name="harga" class="w-full border p-2 rounded" required>
+                <input type="number" name="harga" class="w-full border p-2 rounded-lg bg-orange-900 text-white" required>
             </div>
 
             <div class="mb-3">
                 <label>Kategori</label>
-                <select name="kategori_id" class="w-full border p-2 rounded">
+                <select name="kategori_id" class="w-full border p-2 rounded-lg bg-orange-900 text-white">
                     <option value="">-- Pilih Kategori --</option>
                     @foreach($kategori as $k)
                         <option value="{{ $k->id }}">{{ $k->nama }}</option>
@@ -36,7 +36,7 @@
             
             <div class="mb-3">
                 <label>Merek</label>
-                <select name="merek_id" class="w-full border p-2 rounded">
+                <select name="merek_id" class="w-full border p-2 rounded-lg bg-orange-900 text-white">
                     <option value="">-- Pilih Merek --</option>
                     @foreach($merek as $m)
                         <option value="{{ $m->id }}">{{ $m->nama }}</option>
@@ -46,18 +46,18 @@
             
             <div class="mb-3">
                 <label>Stok</label>
-                <input type="number" name="stok" class="w-full border p-2 rounded" required>
+                <input type="number" name="stok" class="w-full border p-2 rounded-lg bg-orange-900 text-white" required>
             </div>
     
             <div class="mb-3">
                 <label>Deskripsi</label>
-                <textarea name="deskripsi" class="w-full border p-2 rounded"></textarea>
+                <textarea name="deskripsi" class="w-full border p-2 rounded-lg bg-orange-900 text-white"></textarea>
             </div>
     
             <div class=" grid grid-cols-2 gap-4">
                 <div class="mb-3">
                     <label>Gambar Produk (wajib png)</label>
-                    <input type="file" accept="image/png" name="gambarproduk" class="w-full">
+                    <input type="file" accept="image/png" name="gambarproduk" class="w-full ">
                 </div>
     
                 <div class="mb-3">

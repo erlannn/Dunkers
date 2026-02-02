@@ -51,18 +51,6 @@
                         <span>{{ session('error') }}</span>
                     </div>
                 </div>
-
-                <script>
-                    setTimeout(() => {
-                        const toast = document.getElementById('checkout-toast');
-                        if (toast) {
-                            toast.classList.remove('animate-toastIn');
-                            toast.classList.add('animate-toastOut');
-
-                            setTimeout(() => toast.remove(), 400);
-                        }
-                    }, 3000);
-                </script>
                 @endif
 
             </main>
@@ -79,4 +67,17 @@
             </footer>
         </div>
     </body>
+
+    
+    <script>
+        setTimeout(() => {
+            const toast = document.getElementById('checkout-toast');
+            if (toast) {
+                toast.classList.remove('animate-toastIn');
+                toast.classList.add('animate-toastOut');
+
+                setTimeout(() => toast.remove(), 400);
+            }
+        }, 3000);
+    </script>
 </html>

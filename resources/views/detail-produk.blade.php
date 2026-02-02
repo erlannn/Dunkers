@@ -144,6 +144,9 @@
                         @if(auth()->user()->role_id == '1')
                         {{-- Kosong --}}
                         @else
+                        
+                        @endif
+                    @endauth
                         <div>
                             <h3 class="text-2xl ml-4 font-extrabold">Jumlah</h3>
                             <div class="flex items-center ml-4 gap-3">
@@ -154,8 +157,6 @@
                                 </button>
                             </div>
                         </div>
-                        @endif
-                    @endauth
                 </div>
                 
             </form>   

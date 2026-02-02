@@ -8,27 +8,27 @@
 
                 <div class="mb-3">
                     <label>Username</label>
-                    <input name="username" class="border p-2 w-full">
+                    <input name="username" class="border p-2 w-full rounded-lg bg-orange-900 text-white">
                 </div>
         
                 <div class="mb-3">
                     <label>Nama</label>
-                    <input name="name" class="border p-2 w-full">
+                    <input name="name" class="border p-2 w-full rounded-lg bg-orange-900 text-white">
                 </div>
         
                 <div class="mb-3">
                     <label>Email</label>
-                    <input name="email" class="border p-2 w-full">
+                    <input name="email" class="border p-2 w-full rounded-lg bg-orange-900 text-white">
                 </div>
 
                 <div class="mb-3">
                     <label>Nomor HP</label>
-                    <input name="nomor_hp" class="border p-2 w-full">
+                    <input name="nomor_hp" class="border p-2 w-full rounded-lg bg-orange-900 text-white">
                 </div>
         
                 <div class="mb-3">
                     <label>Password</label>
-                    <input type="password" name="password" class="border p-2 w-full">
+                    <input type="password" name="password" class="border p-2 w-full rounded-lg bg-orange-900 text-white">
                 </div>
         
                 <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">

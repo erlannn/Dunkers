@@ -8,6 +8,12 @@
         table { width: 100%; border-collapse: collapse; }
         th, td { border:1px solid #000; padding:6px; }
         th { background:#eee; }
+        tr {
+            text-align: center;
+        }
+        tbody{
+            text-align: center;
+        }
     </style>
 </head>
 <body>

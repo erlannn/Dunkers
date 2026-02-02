@@ -1,10 +1,10 @@
 <x-app-layout>
     <div class="p-6">
-        <h1 class=" text-4xl text-center font-bold mb-4 text-orange-500">Kelola Produk</h1>
+        <h1 class=" text-4xl font-bold mb-4 text-orange-500 text-center">Kelola Produk</h1>
         
         
         <a href="{{ route('admin.produk.create') }}" 
-        class="bg-orange-600 hover:bg-orange-500 text-white px-4 py-2 rounded-lg  ">Tambah Produk
+        class="bg-orange-600 hover:bg-orange-500 text-white px-4 py-2 rounded-lg text-lg">Tambah Produk
         </a>
         
         <table class="w-full mt-5">

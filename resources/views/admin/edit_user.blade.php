@@ -9,27 +9,27 @@
         
                 <div class="mb-3">
                     <label>Nama</label>
-                    <input name="name" value="{{ $user->name }}" class="border p-2 w-full">
+                    <input name="name" value="{{ $user->name }}" class="border p-2 w-full rounded-lg bg-orange-900 text-white">
                 </div>
 
                 <div class="mb-3">
                     <label>Username</label>
-                    <input name="username" value="{{ $user->username }}" class="border p-2 w-full">
+                    <input name="username" value="{{ $user->username }}" class="border p-2 w-full rounded-lg bg-orange-900 text-white">
                 </div>
         
                 <div class="mb-3">
                     <label>Email</label>
-                    <input name="email" value="{{ $user->email }}" class="border p-2 w-full">
+                    <input name="email" value="{{ $user->email }}" class="border p-2 w-full rounded-lg bg-orange-900 text-white">
                 </div>
 
                 <div class="mb-3">
                     <label>Nomor Hp</label>
-                    <input name="nomor_hp" value="{{ $user->nomor_hp }}" class="border p-2 w-full">
+                    <input name="nomor_hp" value="{{ $user->nomor_hp }}" class="border p-2 w-full rounded-lg bg-orange-900 text-white">
                 </div>
         
                 <div class="mb-3">
                     <label>Role</label>
-                    <select name="role_id" class="border p-2 w-full">
+                    <select name="role_id" class="border p-2 w-full rounded-lg bg-orange-900 text-white">
                         <option value="1" {{ $user->role_id==1?'selected':'' }}>Admin</option>
                         <option value="2" {{ $user->role_id==2?'selected':'' }}>Pelanggan</option>
                     </select>
