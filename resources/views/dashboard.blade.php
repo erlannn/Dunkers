@@ -53,64 +53,61 @@
         {{-- ================= SPOTLIGHT ================= --}}
 
         @if($spotlight)
-        @php
-            $produk = isset($spotlight->produk) ? $spotlight->produk : $spotlight;
-        @endphp
+            @php
+                $produk = isset($spotlight->produk) ? $spotlight->produk : $spotlight;
+            @endphp
 
-        <div class="max-w-lg mx-auto col-span-2 h-[600px] rounded-[30px] bg-[#E67E22] shadow-xl shadow-slate-700">
+            <div class="max-w-lg mx-auto col-span-2 h-[600px] rounded-[30px] bg-[#E67E22] shadow-xl shadow-slate-700">
 
-            <div class="max-w-lg mx-auto">
-                <div class="relative max-w-lg mx-auto overflow-hidden rounded-3xl shadow-lg">
+                <div class="max-w-lg mx-auto">
+                    <div class="relative max-w-lg mx-auto overflow-hidden rounded-3xl shadow-lg">
 
-                    <div id="slider" class="flex transition-transform duration-700 ease-in-out">
+                        <div id="slider" class="flex transition-transform duration-700 ease-in-out">
 
-                        @if($produk->gambarproduk1)
-                        <div class="min-w-full">
-                            <img src="{{ asset('storage/img/produk/' . $produk->gambarproduk1) }}" class="w-full h-64 md:h-96 object-cover">
+                            @if($produk->gambarproduk1)
+                            <div class="min-w-full">
+                                <img src="{{ asset('storage/img/produk/' . $produk->gambarproduk1) }}" class="w-full h-64 md:h-96 object-cover">
+                            </div>
+                            @endif
+
+                            @if($produk->gambarproduk2)
+                            <div class="min-w-full">
+                                <img src="{{ asset('storage/img/produk/' . $produk->gambarproduk2) }}" class="w-full h-64 md:h-96 object-cover">
+                            </div>
+                            @endif
+
+                            @if($produk->gambarproduk3)
+                            <div class="min-w-full">
+                                <img src="{{ asset('storage/img/produk/' . $produk->gambarproduk3) }}" class="w-full h-64 md:h-96 object-cover">
+                            </div>
+                            @endif
+
                         </div>
-                        @endif
 
-                        @if($produk->gambarproduk2)
-                        <div class="min-w-full">
-                            <img src="{{ asset('storage/img/produk/' . $produk->gambarproduk2) }}" class="w-full h-64 md:h-96 object-cover">
+                        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+                            <div class="dot w-3 h-3 rounded-full bg-white/50 cursor-pointer"></div>
+                            <div class="dot w-3 h-3 rounded-full bg-white/50 cursor-pointer"></div>
+                            <div class="dot w-3 h-3 rounded-full bg-white/50 cursor-pointer"></div>
                         </div>
-                        @endif
-
-                        @if($produk->gambarproduk3)
-                        <div class="min-w-full">
-                            <img src="{{ asset('storage/img/produk/' . $produk->gambarproduk3) }}" class="w-full h-64 md:h-96 object-cover">
-                        </div>
-                        @endif
 
                     </div>
-
-                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
-                        <div class="dot w-3 h-3 rounded-full bg-white/50 cursor-pointer"></div>
-                        <div class="dot w-3 h-3 rounded-full bg-white/50 cursor-pointer"></div>
-                        <div class="dot w-3 h-3 rounded-full bg-white/50 cursor-pointer"></div>
-                    </div>
-
                 </div>
-            </div>
 
-            <div class="flex items-center justify-center mx-6 mt-3 text-justify">
-                <p class="text-white">
-                    {{ $produk->deskripsi }}
-                </p>
-            </div>
+                <div class="flex items-center justify-center mx-6 mt-3 text-justify">
+                    <p class="text-white">
+                        {{ $produk->deskripsi }}
+                    </p>
+                </div>
 
-            <div class="flex items-center justify-center mt-3">
-                <a href="{{ route('produk.show', $produk->id) }}"
-                class="bg-white text-orange-500 px-5 py-2 rounded-full font-bold text-sm shadow-md hover:shadow-lg hover:bg-gray-400  transition-all active:scale-95">
-                    Lihat Produk
-                </a>
-            </div>
+                <div class="flex items-center justify-center mt-3">
+                    <a href="{{ route('produk.show', $produk->id) }}"
+                    class="bg-white text-orange-500 px-5 py-2 rounded-full font-bold text-sm shadow-md hover:shadow-lg hover:bg-gray-400  transition-all active:scale-95">
+                        Lihat Produk
+                    </a>
+                </div>
 
-        </div>
+            </div>
         @endif
-
-
-
         
     </div>
     <br><br><br><br><br><br>
@@ -121,8 +118,21 @@
         </div>
     </div>
 
-    <br><br><br><br><br><br><br><br><br><br><br>
-    
+    <br><br><br><br><br><br>
+
+    <div>
+        <div>
+            <img src="" alt="">
+        </div>
+        <div>
+
+        </div>
+        <div>
+
+        </div>
+    </div>
+
+
     
     <script>
         const slider = document.getElementById('slider');

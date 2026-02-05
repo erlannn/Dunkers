@@ -47,6 +47,33 @@ class UserSeeder extends Seeder
                 'role_id' => 2,
                 'password' => Hash::make('12345678'),
             ],
+            [
+                'name' => 'Astra',
+                'email' => 'astra@gmail.com',
+                'username' => 'astra',
+                'alamat' => 'Jl. Padang no.05',
+                'nomor_hp' => '0811223349',
+                'role_id' => 2,
+                'password' => Hash::make('12345678'),
+            ],
+            [
+                'name' => 'Tonyk',
+                'email' => 'Tonyk@gmail.com',
+                'username' => 'Tony',
+                'alamat' => 'Jl. Padang no.06',
+                'nomor_hp' => '0811223350',
+                'role_id' => 2,
+                'password' => Hash::make('12345678'),
+            ],
+            [
+                'name' => 'Ramvi',
+                'email' => 'ramvi@gmail.com',
+                'username' => 'Ramvi',
+                'alamat' => 'Jl. Padang no.07',
+                'nomor_hp' => '0811223351',
+                'role_id' => 2,
+                'password' => Hash::make('12345678'),
+            ],
         ]);
     }
 }

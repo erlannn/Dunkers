@@ -1,5 +1,4 @@
 <x-app-layout>
-
     <div class="grid grid-cols-2 mt-10">
 
         {{-- ================= SISI KIRI ================= --}}
@@ -93,76 +92,80 @@
                 </span>
             </div>
 
-            {{-- <h3 class="text-2xl font-extrabold mb-3">Ukuran</h3> --}}
-    
-            {{-- <div class="grid grid-cols-2">
-    
-                <div class="flex gap-2 flex-wrap">
-                    @if ($produk->kategori && $produk->kategori->ukurans->count())
-                        @foreach ($produk->kategori->ukurans as $ukuran)
-                            <x-primary-button>{{ $ukuran->nama }}</x-primary-button>
-                        @endforeach
-                    @else
-                        <span class="text-gray-400">Ukuran tidak tersedia untuk aksesoris</span>
-                    @endif
+            @if($produk->stok <= 0)
+                <div class="bg-red-600 text-white p-3 rounded-lg mt-4 font-semibold text-center">
+                    ⚠️ Stok produk telah habis
                 </div>
-    
-                <div class="flex justify-center">
-                    <x-primary-button>Keranjang</x-primary-button>
-                </div>
-    
-            </div> --}}
+            @endif
 
-            <form action="{{ route('cart.add', $produk->id) }}" method="POST">
+            <form action="{{ route('cart.add', $produk->id) }}" method="POST" @if($produk->stok <= 0) onsubmit="return false;" @endif>
                 @csrf
                 
                 <div class=" grid grid-cols-2">
-                    <div>
-                        @if ($produk->kategori && $produk->kategori->ukurans->count())
-                            <h3 class="text-2xl font-extrabold mb-3">Ukuran</h3>
-                        
-                            <div class="flex gap-3 flex-wrap">
-                                @foreach ($produk->kategori->ukurans as $ukuran)
-                                    <label class="cursor-pointer">
-                                        <input type="radio" 
-                                            name="ukuran_id" 
-                                            value="{{ $ukuran->id }}" 
-                                            class="hidden peer" required>
-                        
-                                        <span class="px-4 py-2 rounded-lg border 
-                                            peer-checked:bg-[#E67E22]
-                                            peer-checked:text-white">
-                                            {{ $ukuran->nama }}
-                                        </span>
-                                    </label>
-                                @endforeach
-                            </div>
-                        @endif
-                    </div>
-
-                        @auth
+                    @auth
                         @if(auth()->user()->role_id == '1')
-                        {{-- Kosong --}}
-                        @else
-                        
+                            {{-- Kosong --}}
+                            @elseif (auth()->user()->role_id == '2')
+                            <div>
+                                @if ($produk->kategori && $produk->kategori->ukurans->count())
+                                    <h3 class="text-2xl font-extrabold mb-3">Ukuran</h3>
+                                
+                                    <div class="flex gap-3 flex-wrap">
+                                        @foreach ($produk->kategori->ukurans as $ukuran)
+                                            <label class="cursor-pointer">
+                                                <input type="radio" 
+                                                    name="ukuran_id" 
+                                                    value="{{ $ukuran->id }}" 
+                                                    class="hidden peer" required>
+                                
+                                                <span class="px-4 py-2 rounded-lg border 
+                                                    peer-checked:bg-[#E67E22]
+                                                    peer-checked:text-white">
+                                                    {{ $ukuran->nama }}
+                                                </span>
+                                            </label>
+                                        @endforeach
+                                    </div>
+                                @endif
+                            </div>
+                            <div>
+                                <h3 class="text-2xl ml-4 font-extrabold">Jumlah</h3>
+                                <div class="flex items-center ml-4 gap-3">
+                                
+                                    <input type="number" name="qty" value="1" min="1" class=" w-20 text-black rounded" @if($produk->stok <= 0) disabled @endif>
+                                    <button type="submit" 
+                                        @if($produk->stok <= 0) 
+                                            disabled 
+                                            class=" bg-gray-400 cursor-not-allowed px-6 py-2 rounded w-[75px] text-white opacity-60"
+                                        @else
+                                            class=" bg-orange-500 hover:bg-orange-700 px-6 py-2 rounded w-[75px] text-white"
+                                        @endif>
+                                        <img src="{{ asset('storage/img/produk/keranjang.png') }}" alt="keranjang">
+                                    </button>
+                                </div>
+                            </div>
+                            @else
+                            <div>
+                                <h3 class="text-2xl ml-4 font-extrabold">Jumlah</h3>
+                                <div class="flex items-center ml-4 gap-3">
+                                
+                                    <input type="number" name="qty" value="1" min="1" class=" w-20 text-black rounded" @if($produk->stok <= 0) disabled @endif>
+                                    <button type="submit" 
+                                        @if($produk->stok <= 0) 
+                                            disabled 
+                                            class=" bg-gray-400 cursor-not-allowed px-6 py-2 rounded w-[75px] text-white opacity-60"
+                                        @else
+                                            class=" bg-orange-500 hover:bg-orange-700 px-6 py-2 rounded w-[75px] text-white"
+                                        @endif>
+                                        <img src="{{ asset('storage/img/produk/keranjang.png') }}" alt="keranjang">
+                                    </button>
+                                </div>
+                            </div>
                         @endif
                     @endauth
-                        <div>
-                            <h3 class="text-2xl ml-4 font-extrabold">Jumlah</h3>
-                            <div class="flex items-center ml-4 gap-3">
-                            
-                                <input type="number" name="qty" value="1" min="1" class=" w-20 text-black rounded">
-                                <button type="submit" class=" bg-orange-500 hover:bg-orange-700 px-6 py-2 rounded w-[75px] text-white">
-                                    <img src="{{ asset('storage/img/produk/keranjang.png') }}" alt="keranjang">
-                                </button>
-                            </div>
-                        </div>
                 </div>
-                
-            </form>   
-                  
+            </form>    
         </div>
-    
     </div>
     
 
@@ -172,36 +175,40 @@
         <div class=" mt-4 flex justify-start">
             <h3 class=" text-2xl font-bold text-[#E67E22] border-b-2 border-[#E67E22]">Rekomendasi Produk!</h3>
         </div>
-
     </div>
 
     @if($guest)
-    <p class="text-gray-400 mt-4 ml-10">
-        Silahkan berbelanja dahulu untuk mendapatkan rekomendasi produk!.
-    </p>
-    @else
-        @if($rekomendasi->isEmpty())
-            <p class="text-gray-400 mt-4 ml-10">Silahkan berbelanja dahulu untuk mendapatkan rekomendasi produk!.</p>
+        <p class="text-gray-400 mt-4 ml-10">
+            Silahkan daftar dan berbelanja dahulu untuk mendapatkan rekomendasi produk.
+        </p>
+        @elseif($isAdmin)
+            <p class="text-gray-400 mt-4 ml-10">
+                Admin tidak melihat rekomendasi produk.
+            </p>
+        @elseif($rekomendasi->isEmpty())
+            <p class="text-gray-400 mt-4 ml-10">
+                Silahkan berbelanja dahulu untuk mendapatkan rekomendasi produk.
+            </p>
         @else
             <div class="grid grid-cols-4 mt-6">
                 @foreach($rekomendasi as $item)
-                    <div class=" flex justify-center">
+                    <div class="flex justify-center">
                         <a href="{{ route('produk.show', $item->id) }}"
-                            class="bg-[#1A1A1A] p-4 rounded-xl hover:scale-110 transition">
-        
-                                <img src="{{ asset('storage/img/produk/'.$item->gambarproduk) }}"
-                                    class="h-40 object-cover rounded mb-2">
-        
-                                <h4 class="font-bold text-white">{{ $item->nama }}</h4>
-                                <p class="text-orange-400">
-                                    Rp {{ number_format($item->harga,0,',','.') }}
-                                </p>
-                            </a>
+                        class="bg-[#1A1A1A] p-4 rounded-xl hover:scale-110 transition">
+
+                            <img src="{{ asset('storage/img/produk/'.$item->gambarproduk) }}"
+                                class="h-40 object-cover rounded mb-2">
+
+                            <h4 class="font-bold text-white">{{ $item->nama }}</h4>
+                            <p class="text-orange-400">
+                                Rp {{ number_format($item->harga,0,',','.') }}
+                            </p>
+                        </a>
                     </div>
                 @endforeach
-            </div>
-        @endif
+        </div>
     @endif
+
 
     <br><br>
 

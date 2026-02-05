@@ -14,7 +14,7 @@
         <form action="{{ route('admin.produk.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
     
-            <div class="mb-3">
+            <div class="mb-3 ">
                 <label>Nama Produk</label>
                 <input type="text" name="nama" class="w-full border p-2 rounded-lg bg-orange-900 text-white" required>
             </div>
@@ -57,7 +57,7 @@
             <div class=" grid grid-cols-2 gap-4">
                 <div class="mb-3">
                     <label>Gambar Produk (wajib png)</label>
-                    <input type="file" accept="image/png" name="gambarproduk" class="w-full ">
+                    <input type="file" accept="image/png" name="gambarproduk" class="w-full" >
                 </div>
     
                 <div class="mb-3">

@@ -68,10 +68,31 @@
                         Checkout
                     </button>
                 @else
-                    <a href="{{ route('checkout.page') }}"
-                    class="bg-orange-800 hover:bg-orange-700 mt-4 px-6 py-2 rounded-lg mx-2 font-bold text-white inline-block">
-                        Checkout
-                    </a>
+                    @php
+                        $hasOutOfStockItems = false;
+                        foreach($carts as $item) {
+                            if($item->produk->stok <= 0) {
+                                $hasOutOfStockItems = true;
+                                break;
+                            }
+                        }
+                    @endphp
+                    
+                    @if($hasOutOfStockItems)
+                        <div class="w-full bg-red-600 text-white p-3 rounded-lg mt-4 font-semibold text-center">
+                            ⚠️ Beberapa produk stoknya telah habis, silakan hapus produk tersebut
+                        </div>
+                        <button
+                            disabled
+                            class="bg-gray-600 cursor-not-allowed mt-4 px-6 py-2 rounded-lg mx-2 font-bold text-white inline-block opacity-60">
+                            Checkout
+                        </button>
+                    @else
+                        <a href="{{ route('checkout.page') }}"
+                        class="bg-orange-800 hover:bg-orange-700 mt-4 px-6 py-2 rounded-lg mx-2 font-bold text-white inline-block">
+                            Checkout
+                        </a>
+                    @endif
                 @endif
 
             </div>

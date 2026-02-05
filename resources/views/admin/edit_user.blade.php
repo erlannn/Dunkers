@@ -23,6 +23,11 @@
                 </div>
 
                 <div class="mb-3">
+                    <label>Alamat</label>
+                    <input name="alamat" value="{{ $user->alamat }}" class="border p-2 w-full rounded-lg bg-orange-900 text-white">
+                </div>
+
+                <div class="mb-3">
                     <label>Nomor Hp</label>
                     <input name="nomor_hp" value="{{ $user->nomor_hp }}" class="border p-2 w-full rounded-lg bg-orange-900 text-white">
                 </div>

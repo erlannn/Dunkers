@@ -15,6 +15,11 @@ class CartController extends Controller
 {
     public function add(Request $request, Produk $produk)
     {
+        // Validasi stok
+        if ($produk->stok <= 0) {
+            return back()->with('error', 'Stok produk telah habis');
+        }
+
         $produk->load('kategori.ukurans');
 
         if ($produk->kategori && $produk->kategori->ukurans->count()) {
@@ -26,6 +31,11 @@ class CartController extends Controller
             $request->validate([
                 'qty' => 'required|min:1'
             ]);
+        }
+
+        // Validasi stok dengan qty yang diminta
+        if ($request->qty > $produk->stok) {
+            return back()->with('error', 'Kuantitas yang diminta melebihi stok yang tersedia');
         }
 
         $ukuranId = $request->ukuran_id ?? null;

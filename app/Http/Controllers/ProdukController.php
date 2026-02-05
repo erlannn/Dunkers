@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Detail_Transaksi;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ProdukController extends Controller
 {
@@ -75,24 +76,45 @@ class ProdukController extends Controller
 
     private function getCFRecommendations(int $userId, int $limit = 4)
     {
-        $targetVector = $this->getUserVector($userId);
-        if (empty($targetVector)) return collect([]);
+        $user = Auth::user();
 
-        $users = User::where('id', '!=', $userId)->pluck('id');
+        if (!$user) return collect();
+
+        if ($user->role_id == 1) return collect();
+
+        $targetVector = $this->getUserVector($userId);
+        if (count($targetVector) < 1) return collect();
+
+        $users = User::where('id', '!=', $userId)
+            ->where('role_id', '!=', 1)
+            ->whereHas('transaksi')
+            ->pluck('id');
 
         $similarities = [];
 
         foreach ($users as $otherUserId) {
             $otherVector = $this->getUserVector($otherUserId);
+            if (empty($otherVector)) continue;
+
             $sim = $this->cosineSimilarity($targetVector, $otherVector);
 
-            // threshold (Ini seharusnya 0.5 pada skripsi rayhan)
+             // 👇 LOG SCORE
+            // Log::info("CF Similarity", [
+            //     'target_user' => $userId,
+            //     'other_user' => $otherUserId,
+            //     'score' => $sim,
+            //     'targetVector' => $targetVector,
+            //     'otherVector' => $otherVector,
+            // ]);
+
+            // dd($sim);
+
             if ($sim >= 0.2) {
                 $similarities[$otherUserId] = $sim;
             }
         }
 
-        if (empty($similarities)) return collect([]);
+        if (empty($similarities)) return collect();
 
         arsort($similarities);
 
@@ -100,6 +122,7 @@ class ProdukController extends Controller
 
         foreach ($similarities as $otherUserId => $sim) {
             $otherVector = $this->getUserVector($otherUserId);
+            if (empty($otherVector)) continue;
 
             foreach ($otherVector as $produkId => $value) {
                 if (!isset($targetVector[$produkId])) {
@@ -107,45 +130,45 @@ class ProdukController extends Controller
                         $scores[$produkId] = 0;
                     }
 
-                    // skor = similarity * jumlah beli
                     $scores[$produkId] += $sim * $value;
                 }
             }
         }
 
-        if (empty($scores)) return collect([]);
+        if (empty($scores)) return collect();
 
         arsort($scores);
 
         $produkIds = array_keys(array_slice($scores, 0, $limit, true));
 
-        // Untuk melihat nilai similarities 
-        // dd($similarities);
-
-        return Produk::whereIn('id', $produkIds)->get();
+        return Produk::whereIn('id', $produkIds)->take($limit)->get();
     }
 
     // ================== SHOW DETAIL + CF ==================
 
     public function show($id)
     {
+        $user = Auth::user();
         $produk = Produk::with('kategori.ukurans', 'merek')->findOrFail($id);
 
         $rekomendasi = collect();
         $guest = true;
+        $isAdmin = false;
 
         if (Auth::check()) {
             $guest = false;
 
-            $userId = Auth::id();
+            $user = Auth::user();
 
-            $rekomendasi = $this->getCFRecommendations($userId, 4);
-
-            // fallback jika belum ada histori
-            if ($rekomendasi->isEmpty()) {
+            if ($user->role_id == 1) {
+                $isAdmin = true;
+            } else {
+                $userId = $user->id;
+                $rekomendasi = $this->getCFRecommendations($userId, 4);
             }
         }
 
-        return view('detail-produk', compact('produk', 'rekomendasi', 'guest'));
+        return view('detail-produk', compact('produk', 'rekomendasi', 'guest', 'isAdmin'));
     }
+
 }

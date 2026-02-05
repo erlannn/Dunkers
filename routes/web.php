@@ -7,6 +7,7 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TransaksiController;
 
 // Route::get('/', function () {
 //     return view('dashboard');
@@ -45,6 +46,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    // Riwayat Belanja
+    Route::get('/riwayat-belanja', [TransaksiController::class, 'riwayat'])->name('riwayat-belanja');
+    Route::get('/riwayat-belanja/{id}', [TransaksiController::class, 'detail'])->name('riwayat-belanja.detail');
 });
 
 
@@ -85,8 +90,6 @@ Route::middleware(['auth','is_admin'])
         Route::delete('/admin/users/{user}', [AdminController::class, 'destroyUser'])->name('users.destroy');
 
 });
-
-
 
 
 require __DIR__.'/auth.php';
