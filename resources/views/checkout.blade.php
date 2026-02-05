@@ -1,71 +1,116 @@
 <x-app-layout>
-
-    <div class=" flex justify-center mt-5">
-        <div class=" bg-[#E67E22] w-[500px] rounded-2xl">
-            <h2 class="text-2xl font-bold text-white mb-4 mt-2 text-center">Checkout Produk</h2>
-        
-            <form action="{{ route('checkout.store') }}" method="POST">
-            @csrf
-            
-                <table class="w-full text-white mb-6 text-lg">
-                    <thead>
-                        <tr>
-                            <th>Produk</th>
-                            <th>Ukuran</th>
-                            <th>Jumlah</th>
-                            <th>Harga</th>
-                        </tr>
-                    </thead>
-                    @php $total=0; @endphp
-                    @foreach($carts as $item)
-                        @php $sub = $item->produk->harga * $item->qty; $total+=$sub; @endphp
-                        <tbody class=" text-center text-md">
-                            <tr>
-                                <td>{{ $item->produk->nama }}</td>
-                                <td>{{ $item->ukuran->nama ?? '-' }}</td>
-                                <td>{{ $item->qty }}</td>
-                                <td>Rp {{ number_format($sub) }}</td>
-                                </tr>
-                        </tbody>
-                    @endforeach
-                </table>
-                
-                <p class="text-white mb-2 mt-5 text-center text-xl font-bold">Total: Rp {{ number_format($total) }}</p>
-
-                <div class=" flex justify-center">
-                    <hr class=" w-96">
-                </div>
-
-                <h3 class="text-white mb-1 text-center text-lg font-semibold mt-2">Metode Pembayaran</h3>
-                
-                <div class=" flex justify-center">
-                    @foreach($metodes as $m)
-                    <label class="text-white block text-lg font-semibold mx-2">
-                        <input type="radio" name="metode_pembayaran_id" value="{{ $m->id }}">
-                        {{ $m->nama }}
-                    </label>
-                    @endforeach
-                </div>
-
-                @if($carts->isEmpty())
-                <div class=" flex justify-center mb-3">
-                    <button class="bg-gray-600 w-80 px-6 py-2 mt-4 cursor-not-allowed rounded-lg text-white text-lg font-bold">
-                        Bayar Sekarang
-                    </button>
-                </div>
-                @else
-                <div class=" flex justify-center mb-3">
-                    <button class="bg-blue-600 hover:bg-blue-700 w-80 px-6 py-2 mt-4 rounded-lg text-white text-lg font-bold">
-                        Bayar Sekarang
-                    </button>
-                </div>
-                @endif
-                
-                
-            
-            </form>
-        </div>
+    <div class="ml-16 mb-5 mt-5 flex justify-center">
+        <h3 class="text-4xl font-extrabold text-[#E67E22]">Checkout</h3>
     </div>
-    
-    </x-app-layout>
+
+    @if($carts->isEmpty())
+        <div class="flex justify-center mt-10">
+            <div class="text-center">
+                <p class="text-xl text-gray-500 mb-4">Keranjang Anda kosong</p>
+                <a href="{{ route('produk') }}" class="px-6 py-2 bg-[#E67E22] text-white rounded-lg hover:bg-orange-600 transition">
+                    Mulai Belanja
+                </a>
+            </div>
+        </div>
+    @else
+        <div class="flex justify-center mb-8">
+            <div class="w-full max-w-4xl px-4">
+                <form action="{{ route('checkout.store') }}" method="POST">
+                    @csrf
+
+                    <!-- Ringkasan Pesanan -->
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4">Ringkasan Pesanan</h2>
+
+                        <div class="space-y-4">
+                            @php $total = 0; @endphp
+                            @foreach($carts as $item)
+                                @php
+                                    $subtotal = $item->produk->harga * $item->qty;
+                                    $total += $subtotal;
+                                @endphp
+
+                                <div class="flex items-center gap-4 p-4 border rounded-lg hover:bg-gray-50 transition">
+                                    <div class="w-16 h-16 flex-shrink-0">
+                                        <img src="{{ asset('storage/img/produk/' . $item->produk->gambarproduk) }}"
+                                             alt="{{ $item->produk->nama }}"
+                                             class="w-full h-full object-cover rounded-lg">
+                                    </div>
+
+                                    <div class="flex-grow">
+                                        <h3 class="font-semibold text-gray-800">{{ $item->produk->nama }}</h3>
+                                        <p class="text-sm text-gray-500">
+                                            Ukuran: {{ $item->ukuran->nama ?? 'Tidak ada' }}
+                                        </p>
+                                        <p class="text-sm text-gray-500">
+                                            Kuantitas: {{ $item->qty }}
+                                        </p>
+                                    </div>
+
+                                    <div class="text-right">
+                                        <p class="text-sm text-gray-500">Harga Satuan</p>
+                                        <p class="font-semibold text-gray-800">Rp {{ number_format($item->produk->harga, 0, ',', '.') }}</p>
+                                        <p class="text-sm text-gray-500 mt-1">Subtotal</p>
+                                        <p class="font-bold text-[#E67E22]">Rp {{ number_format($subtotal, 0, ',', '.') }}</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <!-- Total -->
+                        <div class="border-t mt-6 pt-4">
+                            <div class="flex justify-between items-center">
+                                <p class="text-xl font-bold text-gray-800">Total Pembayaran</p>
+                                <p class="text-2xl font-bold text-[#E67E22]">Rp {{ number_format($total, 0, ',', '.') }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Metode Pembayaran -->
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4">Metode Pembayaran</h2>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            @foreach($metodes as $m)
+                                <label class="relative">
+                                    <input type="radio"
+                                           name="metode_pembayaran_id"
+                                           value="{{ $m->id }}"
+                                           class="peer sr-only"
+                                           required>
+
+                                    <div class="p-4 border-2 border-gray-200 rounded-lg cursor-pointer
+                                                peer-checked:border-[#E67E22] peer-checked:bg-orange-50
+                                                hover:border-[#E67E22] transition">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-4 h-4 border-2 border-gray-300 rounded-full
+                                                        peer-checked:border-[#E67E22] peer-checked:bg-[#E67E22]
+                                                        flex items-center justify-center">
+                                                <div class="w-2 h-2 bg-white rounded-full opacity-0 peer-checked:opacity-100"></div>
+                                            </div>
+                                            <span class="font-semibold text-gray-800">{{ $m->nama }}</span>
+                                        </div>
+                                    </div>
+                                </label>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <!-- Tombol Checkout -->
+                    <div class="flex justify-center gap-4">
+                        <a href="{{ route('cart.index') }}"
+                           class="px-8 py-3 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition font-semibold">
+                            Kembali ke Keranjang
+                        </a>
+
+                        <button type="submit"
+                                class="px-8 py-3 bg-[#E67E22] text-white rounded-lg hover:bg-orange-600 transition font-semibold">
+                            Bayar Sekarang
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    @endif
+</x-app-layout>
     

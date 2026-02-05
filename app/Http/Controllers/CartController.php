@@ -75,10 +75,18 @@ class CartController extends Controller
 
     public function update(Request $request, Cart $cart)
     {
-        $request->validate(['qty'=>'required|min:1']);
-        $cart->update(['qty'=>$request->qty]);
+        $request->validate([
+            'qty' => 'required|min:1|integer'
+        ]);
 
-        return back()->with('success','Qty diperbarui');
+        // Validasi bahwa quantity tidak melebihi stok yang tersedia
+        if ($request->qty > $cart->produk->stok) {
+            return back()->with('error', 'Kuantitas melebihi stok yang tersedia (' . $cart->produk->stok . ')');
+        }
+
+        $cart->update(['qty' => $request->qty]);
+
+        return back()->with('success', 'Kuantitas berhasil diperbarui');
     }
 
     public function destroy(Cart $cart)
